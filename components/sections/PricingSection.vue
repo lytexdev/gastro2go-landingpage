@@ -2,12 +2,12 @@
   <section id="pricing" class="pricing-section">
     <div class="container">
       <div class="section-header text-center">
-        <h2 class="fade-in">{{ $t('pricing.title') }}</h2>
-        <p class="section-subtitle fade-in">{{ $t('pricing.subtitle') }}</p>
+        <h2>{{ $t('pricing.title') }}</h2>
+        <p class="section-subtitle">{{ $t('pricing.subtitle') }}</p>
       </div>
       
       <div class="pricing-wrapper">
-        <div class="pricing-card fade-in">
+        <div class="pricing-card">
           <div class="pricing-header">
             <h3 class="pricing-name">{{ $t('pricing.tier.name') }}</h3>
             <div class="pricing-price">
@@ -42,7 +42,7 @@
           </div>
         </div>
         
-        <div class="pricing-compare fade-in">
+        <div class="pricing-compare">
           <div class="compare-content">
             <div class="compare-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -59,7 +59,8 @@
                 <div class="calculator-slider">
                   <input 
                     type="range" 
-                    v-model="monthlyRevenue" 
+                    :value="monthlyRevenue"
+                    @input="updateRevenue"
                     min="1000" 
                     max="10000" 
                     step="500" 
@@ -76,7 +77,7 @@
                     <div class="result-value">{{ fixedPrice }}€/Monat</div>
                   </div>
                   <div class="result-item">
-                    <div class="result-label">Lieferando</div>
+                    <div class="result-label">Andere Dienste</div>
                     <div class="result-value">{{ lieferandoPrice }}€/Monat</div>
                   </div>
                   <div class="result-item savings">
@@ -94,7 +95,8 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import BaseButton from '../ui/BaseButton.vue';
 
 const { t } = useI18n();
 
@@ -102,13 +104,19 @@ const features = computed(() => t('pricing.tier.features'));
 const monthlyRevenue = ref(5000);
 const fixedPrice = 49;
 
+const updateRevenue = (event) => {
+  const newValue = parseInt(event.target.value);
+  if (!isNaN(newValue)) {
+    monthlyRevenue.value = newValue;
+  }
+};
+
 const lieferandoPrice = computed(() => {
-  // Calculate Lieferando price (13-30% commission)
-  return Math.round((monthlyRevenue.value * 0.18)); // Using average 18%
+  return Math.round((monthlyRevenue.value * 0.18));
 });
 
 const savings = computed(() => {
-  return lieferandoPrice.value - fixedPrice;
+  return Math.max(0, lieferandoPrice.value - fixedPrice);
 });
 
 const calculatorLabel = computed(() => {
@@ -122,12 +130,14 @@ const scrollToContact = () => {
   }
 };
 
-useScrollAnimation();
+onMounted(() => {
+  console.log('PricingSection mounted');
+});
 </script>
 
 <style lang="scss" scoped>
 .pricing-section {
-  @include section;
+  padding: var(--section-spacing) 0;
   position: relative;
   
   &::before {
@@ -137,284 +147,279 @@ useScrollAnimation();
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba($primary, 0.03) 0%, rgba($white, 0) 70%);
+    background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.03) 0%, rgba(255, 255, 255, 0) 70%);
     z-index: -1;
   }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.section-header {
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  text-align: center;
   
-  .section-header {
-    max-width: 700px;
-    margin: 0 auto $spacing-10;
-    
-    h2 {
-      color: $dark;
-      margin-bottom: $spacing-4;
-    }
-    
-    .section-subtitle {
-      font-size: $font-size-lg;
-      color: $gray-dark;
-    }
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 1rem;
   }
   
-  .pricing-wrapper {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: $spacing-8;
-    max-width: 1000px;
-    margin: 0 auto;
-    
-    @media (min-width: $breakpoint-lg) {
-      grid-template-columns: 1fr 1fr;
-      align-items: stretch;
-    }
+  .section-subtitle {
+    font-size: 1.125rem;
+    color: var(--color-text-light);
+  }
+}
+
+.pricing-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  
+  @media (min-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+  }
+}
+
+.pricing-card {
+  background-color: white;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+  }
+}
+
+.pricing-header {
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  color: white;
+  text-align: center;
+  
+  .pricing-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
   }
   
-  .pricing-card {
-    background-color: $white;
-    border-radius: $border-radius-xl;
-    overflow: hidden;
-    box-shadow: $shadow-lg;
+  .pricing-price {
+    font-family: var(--font-family-heading);
+    margin-bottom: 1.5rem;
     display: flex;
-    flex-direction: column;
-    transition: $transition-base;
+    align-items: baseline;
+    justify-content: center;
     
-    &:hover {
-      transform: translateY(-8px);
-      box-shadow: $shadow-xl;
+    .price-currency {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-right: 0.25rem;
     }
     
-    .pricing-header {
-      padding: $spacing-6;
-      background: linear-gradient(135deg, $primary 0%, darken($primary, 10%) 100%);
-      color: $white;
-      text-align: center;
-      
-      .pricing-name {
-        font-size: $font-size-xl;
-        font-weight: $font-weight-bold;
-        margin-bottom: $spacing-3;
-      }
-      
-      .pricing-price {
-        font-family: $font-family-heading;
-        margin-bottom: $spacing-4;
-        display: flex;
-        align-items: baseline;
-        justify-content: center;
-        
-        .price-currency {
-          font-size: $font-size-xl;
-          font-weight: $font-weight-medium;
-          margin-right: $spacing-1;
-        }
-        
-        .price-amount {
-          font-size: $font-size-4xl;
-          font-weight: $font-weight-bold;
-          line-height: 1;
-        }
-        
-        .price-period {
-          font-size: $font-size-base;
-          opacity: 0.8;
-          margin-left: $spacing-1;
-        }
-      }
-      
-      .pricing-description {
-        font-size: $font-size-base;
-        opacity: 0.9;
-        margin-bottom: 0;
-      }
+    .price-amount {
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1;
     }
     
-    .pricing-features {
-      padding: $spacing-6;
-      flex: 1;
-      
-      .features-list {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-      
-      .feature-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: $spacing-4;
-        
-        &:last-child {
-          margin-bottom: 0;
-        }
-        
-        .feature-icon {
-          color: $primary;
-          margin-right: $spacing-3;
-          flex-shrink: 0;
-        }
-        
-        span {
-          color: $gray-dark;
-        }
-      }
-    }
-    
-    .pricing-action {
-      padding: $spacing-6;
-      border-top: 1px solid $gray-lighter;
+    .price-period {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-left: 0.25rem;
     }
   }
   
-  .pricing-compare {
-    background-color: $white;
-    border-radius: $border-radius-xl;
-    overflow: hidden;
-    box-shadow: $shadow-lg;
-    transition: $transition-base;
+  .pricing-description {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 0;
+  }
+}
+
+.pricing-features {
+  padding: 2rem;
+  flex: 1;
+  
+  .features-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
     
-    &:hover {
-      transform: translateY(-8px);
-      box-shadow: $shadow-xl;
+    &:last-child {
+      margin-bottom: 0;
     }
     
-    .compare-content {
-      padding: $spacing-6;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      
-      @media (min-width: $breakpoint-sm) {
-        flex-direction: row;
-        align-items: flex-start;
-        gap: $spacing-6;
-      }
-    }
-    
-    .compare-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 64px;
-      height: 64px;
-      margin: 0 auto $spacing-4;
-      color: $primary;
-      background-color: rgba($primary, 0.1);
-      border-radius: 50%;
+    .feature-icon {
+      color: var(--color-primary);
+      margin-right: 0.75rem;
       flex-shrink: 0;
+    }
+    
+    span {
+      color: var(--color-text);
+    }
+  }
+}
+
+.pricing-action {
+  padding: 2rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.pricing-compare {
+  background-color: white;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+  }
+}
+
+.compare-content {
+  padding: 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  
+  @media (min-width: 640px) {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+}
+
+.compare-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1rem;
+  color: var(--color-primary);
+  background-color: rgba(var(--color-primary-rgb), 0.1);
+  border-radius: 50%;
+  flex-shrink: 0;
+  
+  @media (min-width: 640px) {
+    margin: 0;
+  }
+  
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.compare-text {
+  flex: 1;
+  
+  h4 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--color-text);
+    
+    @media (min-width: 640px) {
+      text-align: left;
+    }
+  }
+}
+
+.savings-calculator {
+  background-color: rgba(var(--color-gray-100-rgb), 0.5);
+  border-radius: var(--border-radius-lg);
+  padding: 1.5rem;
+  
+  .calculator-label {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .calculator-slider {
+    margin-bottom: 1.5rem;
+    
+    .slider {
+      width: 100%;
+      height: 8px;
+      background: rgba(var(--color-gray-300-rgb), 0.3);
+      outline: none;
+      border-radius: var(--border-radius-pill);
+      appearance: none;
       
-      @media (min-width: $breakpoint-sm) {
-        margin: 0;
+      &::-webkit-slider-thumb {
+        appearance: none;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--color-primary);
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(var(--color-primary-rgb), 0.3);
       }
       
-      svg {
-        width: 32px;
-        height: 32px;
+      &::-moz-range-thumb {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--color-primary);
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(var(--color-primary-rgb), 0.3);
+        border: none;
       }
     }
     
-    .compare-text {
-      flex: 1;
-      
-      h4 {
-        margin-bottom: $spacing-5;
-        text-align: center;
-        color: $dark;
-        
-        @media (min-width: $breakpoint-sm) {
-          text-align: left;
-        }
-      }
-    }
-    
-    .savings-calculator {
-      background-color: rgba($gray-lighter, 0.5);
-      border-radius: $border-radius-lg;
-      padding: $spacing-5;
-      
-      .calculator-label {
-        font-weight: $font-weight-semibold;
-        margin-bottom: $spacing-4;
-        text-align: center;
-      }
-      
-      .calculator-slider {
-        margin-bottom: $spacing-5;
-        
-        .slider {
-          width: 100%;
-          height: 8px;
-          background: rgba($gray-light, 0.3);
-          outline: none;
-          border-radius: $border-radius-pill;
-          appearance: none;
-          
-          &::-webkit-slider-thumb {
-            appearance: none;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: $primary;
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba($primary, 0.3);
-          }
-          
-          &::-moz-range-thumb {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: $primary;
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba($primary, 0.3);
-            border: none;
-          }
-        }
-        
-        .slider-labels {
-          display: flex;
-          justify-content: space-between;
-          font-size: $font-size-sm;
-          color: $gray;
-          margin-top: $spacing-2;
-        }
-      }
-      
-      .calculator-results {
-        .result-item {
-          display: flex;
-          justify-content: space-between;
-          padding: $spacing-3 0;
-          border-bottom: 1px solid rgba($gray-light, 0.3);
-          
-          &.savings {
-            font-weight: $font-weight-bold;
-            color: $primary;
-            border-bottom: none;
-            margin-top: $spacing-2;
-          }
-          
-          .result-label {
-            flex: 1;
-          }
-          
-          .result-value {
-            font-weight: $font-weight-semibold;
-          }
-        }
-      }
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.875rem;
+      color: var(--color-gray-500);
+      margin-top: 0.5rem;
     }
   }
   
-  .fade-in {
-    &:nth-child(1) {
-      transition-delay: 0.1s;
-    }
-    
-    &:nth-child(2) {
-      transition-delay: 0.2s;
-    }
-    
-    &:nth-child(3) {
-      transition-delay: 0.3s;
+  .calculator-results {
+    .result-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(var(--color-gray-300-rgb), 0.3);
+      
+      &.savings {
+        font-weight: 700;
+        color: var(--color-primary);
+        border-bottom: none;
+        margin-top: 0.5rem;
+      }
+      
+      .result-label {
+        flex: 1;
+      }
+      
+      .result-value {
+        font-weight: 600;
+      }
     }
   }
 }

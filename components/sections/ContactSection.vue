@@ -205,25 +205,35 @@ const formSubmitted = ref(false);
 
 // Scroll Animation
 onMounted(() => {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('animate-in');
-      }
+  // Kleine Verzögerung, damit die Seite vollständig geladen ist
+  setTimeout(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const handleIntersect = (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersect, observerOptions);
+
+    // Beobachte alle Elemente mit der Klasse animate-on-scroll
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    animatedElements.forEach(el => {
+      observer.observe(el);
     });
-  }, {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
-  });
 
-  document.querySelectorAll('.animate-on-scroll').forEach(el => {
-    observer.observe(el);
-  });
-
-  onUnmounted(() => {
-    observer.disconnect();
-  });
+    // Cleanup beim Unmount
+    onUnmounted(() => {
+      observer.disconnect();
+    });
+  }, 100); // 100ms Verzögerung
 });
 
 const validateForm = () => {

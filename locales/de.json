@@ -58,7 +58,7 @@
   },
   "pricing": {
     "title": "Transparente Preise ohne Überraschungen",
-    "subtitle": "Spare bis zu 30% im Vergleich zu provisionbasierten Plattformen",
+    "subtitle": "Spare im Vergleich zu provisionbasierten Plattformen",
     "monthly": "Monatlich",
     "yearly": "Jährlich",
     "tier": {
@@ -79,7 +79,7 @@
       ],
       "cta": "Jetzt starten"
     },
-    "compare": "Lieferando nimmt 13-30% Provision pro Bestellung"
+    "compare": "Andere Dienste berechnen oft hohe Provisionen pro Bestellung"
   },
   "features": {
     "title": "Alle Funktionen auf einen Blick",

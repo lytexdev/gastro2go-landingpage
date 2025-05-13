@@ -52,6 +52,7 @@
 // Basis-Animationen
 .animate-on-scroll {
   opacity: 0;
+  will-change: transform, opacity;
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   
   &.animate-in {
