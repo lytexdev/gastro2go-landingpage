@@ -1,0 +1,170 @@
+// Color palette
+$primary: #4dbe51;
+$primary-light: lighten($primary, 10%);
+$primary-dark: darken($primary, 10%);
+$primary-shadow: rgba(76, 175, 80, 0.2);
+
+$dark: #1D242C;
+$gray-dark: #343A40;
+$gray: #6C757D;
+$gray-light: #ADB5BD;
+$gray-lighter: #E9ECEF;
+$white: #FFFFFF;
+
+// Typography
+// TODO: Add local fonts
+$font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+$font-family-heading: 'Montserrat', $font-family-base;
+
+$font-size-base: 1rem;
+$font-size-sm: 0.875rem;
+$font-size-xs: 0.75rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.375rem;
+$font-size-2xl: 1.75rem;
+$font-size-3xl: 2.25rem;
+$font-size-4xl: 3rem;
+
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Spacing
+$spacing-1: 0.25rem;
+$spacing-2: 0.5rem;
+$spacing-3: 0.75rem;
+$spacing-4: 1rem;
+$spacing-5: 1.5rem;
+$spacing-6: 2rem;
+$spacing-8: 3rem;
+$spacing-10: 4rem;
+$spacing-12: 5rem;
+$spacing-16: 8rem;
+
+// Breakpoints
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+$breakpoint-2xl: 1536px;
+
+// Border-radius
+$border-radius: 0.5rem;
+$border-radius-sm: 0.25rem;
+$border-radius-md: 0.5rem;
+$border-radius-lg: 1rem;
+$border-radius-xl: 1.5rem;
+$border-radius-pill: 50rem;
+
+// Shadows
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+$shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+$shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+$shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.12);
+
+// Animation
+$transition-base: all 0.2s ease-in-out;
+$transition-fast: all 0.1s ease-in-out;
+$transition-slow: all 0.3s ease-in-out;
+
+// Z-index
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;
+
+// Container
+$container-max-width: 1320px;
+$container-padding: $spacing-4;
+
+// Section
+$section-spacing: $spacing-12;
+
+// Colors
+:root {
+  // Primary colors
+  --color-primary: #4dbe51;
+  --color-primary-rgb: 77, 190, 81;
+  --color-primary-dark: #3da341;
+  --color-primary-light: #6ed071;
+  
+  // Secondary colors
+  --color-secondary: #2e7d32;
+  --color-secondary-rgb: 46, 125, 50;
+  --color-secondary-dark: #1b5e20;
+  
+  // Text colors
+  --color-text: #1e293b;
+  --color-text-light: #64748b;
+  
+  // Background colors
+  --color-background: #ffffff;
+  --color-background-alt: #f8fafc;
+  
+  // Border colors
+  --color-border: #e2e8f0;
+  
+  // Error colors
+  --color-error: #ef4444;
+  --color-error-rgb: 239, 68, 68;
+  
+  // Success colors
+  --color-success: #22c55e;
+  --color-success-rgb: 34, 197, 94;
+  
+  // Gray scale
+  --color-gray-50: #f8fafc;
+  --color-gray-100: #f1f5f9;
+  --color-gray-200: #e2e8f0;
+  --color-gray-300: #cbd5e1;
+  --color-gray-400: #94a3b8;
+  --color-gray-500: #64748b;
+  --color-gray-600: #475569;
+  --color-gray-700: #334155;
+  --color-gray-800: #1e293b;
+  --color-gray-900: #0f172a;
+}
+
+// Typography
+$font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+$font-size-base: 1rem;
+$line-height-base: 1.5;
+
+// Spacing
+$spacing-unit: 0.25rem;
+$spacing-xs: $spacing-unit;
+$spacing-sm: $spacing-unit * 2;
+$spacing-md: $spacing-unit * 4;
+$spacing-lg: $spacing-unit * 6;
+$spacing-xl: $spacing-unit * 8;
+
+// Breakpoints
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+$breakpoint-2xl: 1536px;
+
+// Border radius
+$border-radius-sm: 0.25rem;
+$border-radius-md: 0.5rem;
+$border-radius-lg: 1rem;
+
+// Transitions
+$transition-base: all 0.2s ease-in-out;
+$transition-fast: all 0.1s ease-in-out;
+$transition-slow: all 0.3s ease-in-out;
+
+// Z-index
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;

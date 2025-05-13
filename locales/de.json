@@ -1,0 +1,233 @@
+{
+  "meta": {
+    "title": "Gastro2Go.io - Digitalisierung für Gastronomen",
+    "description": "Bestellungen, Treuepunkte, Reservierungen – alles in einer App. Die Digital-Plattform für Restaurants ohne Provisionen.",
+    "keywords": "Gastronomy, Restaurant, App, Bestellsystem, Digitalisierung, Gastronomie, QR-Code, Online-Bestellung"
+  },
+  "nav": {
+    "home": "Start",
+    "benefits": "Vorteile",
+    "demo": "Demo",
+    "pricing": "Preise",
+    "features": "Funktionen",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "language": "Sprache",
+    "login": "Login",
+    "register": "Registrieren",
+    "cta": "Jetzt starten"
+  },
+  "hero": {
+    "title": "Dein Restaurant. Deine Plattform.",
+    "subtitle": "Bestellungen, Treuepunkte, Reservierungen – alles in einer App.",
+    "cta": "Jetzt kostenlos starten",
+    "demo": "Live-Demo ansehen"
+  },
+  "benefits": {
+    "title": "Digitalisiere dein Restaurant",
+    "subtitle": "Ohne technischen Aufwand und ohne versteckte Kosten",
+    "cards": [
+      {
+        "title": "Kein Stress mit Technik",
+        "description": "Wir liefern alles fertig konfiguriert – du musst dich um nichts kümmern. QR-Codes, App und Webseite inklusive."
+      },
+      {
+        "title": "Volle Kontrolle",
+        "description": "Keine Provisionen, keine versteckten Gebühren. Fixe monatliche Kosten ohne Risiko und jederzeit kündbar."
+      },
+      {
+        "title": "Treue Kunden",
+        "description": "Mit Punkten & Coupons belohnen und Stammkunden aufbauen. Automatisierte Kampagnen inklusive."
+      },
+      {
+        "title": "Digitale Bestellungen",
+        "description": "Per QR-Code am Tisch, über deine App oder direkt über die Webseite – du entscheidest, wie bestellt wird."
+      }
+    ]
+  },
+  "demo": {
+    "title": "So einfach funktioniert's",
+    "subtitle": "Sieh dir die Plattform in Aktion an",
+    "try": "Live-Demo jetzt testen",
+    "screens": [
+      "Kunden scannen den QR-Code oder nutzen die App",
+      "Bestellen direkt vom Smartphone ohne Wartezeit",
+      "Bezahlen bargeldlos oder klassisch",
+      "Du erhältst die Bestellung direkt im System"
+    ]
+  },
+  "pricing": {
+    "title": "Transparente Preise ohne Überraschungen",
+    "subtitle": "Spare bis zu 30% im Vergleich zu provisionbasierten Plattformen",
+    "monthly": "Monatlich",
+    "yearly": "Jährlich",
+    "tier": {
+      "name": "Starter-Tarif",
+      "price": "49",
+      "period": "/ Monat",
+      "description": "Alles was du brauchst, um digital durchzustarten",
+      "features": [
+        "0% Provision auf Bestellungen",
+        "Monatlich kündbar",
+        "Unbegrenzte Anzahl an Bestellungen",
+        "Automatische Menükarte-Updates",
+        "QR-Code-Generator für Tische",
+        "Kundenprofil & Treuepunkte",
+        "Push-Benachrichtigungen",
+        "Zahlungsabwicklung inkl.",
+        "Technischer Support"
+      ],
+      "cta": "Jetzt starten"
+    },
+    "compare": "Lieferando nimmt 13-30% Provision pro Bestellung"
+  },
+  "features": {
+    "title": "Alle Funktionen auf einen Blick",
+    "subtitle": "Was Gastro2Go.io von anderen Plattformen unterscheidet",
+    "categories": [
+      {
+        "name": "Bestellsystem",
+        "icon": "shopping-cart",
+        "features": [
+          "QR-Code für Tischbestellungen",
+          "Menü-Management",
+          "Spezialwünsche & Allergene",
+          "Bestellverfolgung in Echtzeit"
+        ]
+      },
+      {
+        "name": "Tischreservierung",
+        "icon": "calendar",
+        "features": [
+          "Online-Reservierungssystem",
+          "Automatische Bestätigungen",
+          "Kundendaten-Speicherung",
+          "Kapazitätsplanung"
+        ]
+      },
+      {
+        "name": "Treueprogramm",
+        "icon": "star",
+        "features": [
+          "Digitale Punkte & Stempel",
+          "Personalisierte Angebote",
+          "Geburtstags-Aktionen",
+          "Automatisierte E-Mails"
+        ]
+      },
+      {
+        "name": "Statistiken",
+        "icon": "bar-chart",
+        "features": [
+          "Tageseinnahmen & Trends",
+          "Beliebteste Produkte",
+          "Kundenanalyse",
+          "Prognosen & Berichte"
+        ]
+      },
+      {
+        "name": "Gutscheine",
+        "icon": "gift",
+        "features": [
+          "Digitale Gutscheine",
+          "Rabatt-Aktionen",
+          "Zeitlich begrenzte Angebote",
+          "Promotion-Tools"
+        ]
+      },
+      {
+        "name": "AYCE-Modus",
+        "icon": "utensils",
+        "features": [
+          "All-You-Can-Eat Steuerung",
+          "Zeitbasierte Abrechnung",
+          "Spezialoptionen für Buffets",
+          "Verschiedene Preiskategorien"
+        ]
+      },
+      {
+        "name": "Benachrichtigungen",
+        "icon": "bell",
+        "features": [
+          "Push-Nachrichten an Kunden",
+          "Status-Updates für Bestellungen",
+          "Erinnerungen für Reservierungen",
+          "Marketing-Kampagnen"
+        ]
+      },
+      {
+        "name": "Sicherheit",
+        "icon": "shield",
+        "features": [
+          "DSGVO-konforme Daten",
+          "Sichere Zahlungsabwicklung",
+          "Verschlüsselte Übertragung",
+          "Regelmäßige Backups"
+        ]
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "Was unsere Kunden sagen",
+    "subtitle": "Bereits über 10 Restaurants vertrauen auf Gastro2Go.io",
+    "items": [
+      {
+        "quote": "Seit wir mit Gastro2Go.io arbeiten, sind unsere Abläufe effizienter geworden. Die Gäste lieben die digitale Bestellung und wir sparen Zeit und Geld.",
+        "author": "Marco Rossi",
+        "restaurant": "Trattoria Bella Italia, München"
+      },
+      {
+        "quote": "Endlich keine hohen Provisionen mehr! Das System ist einfach zu bedienen und der Support ist immer schnell zur Stelle, wenn wir Hilfe brauchen.",
+        "author": "Lisa Müller",
+        "restaurant": "Café Zentral, Berlin"
+      },
+      {
+        "quote": "Das Treueprogramm hat unseren Umsatz deutlich gesteigert. Die Kunden kommen regelmäßiger und bestellen mehr, um Punkte zu sammeln.",
+        "author": "Thomas Weber",
+        "restaurant": "Brauhaus zum Löwen, Hamburg"
+      }
+    ]
+  },
+  "about": {
+    "title": "Über lytex media",
+    "subtitle": "Wir digitalisieren die Gastronomie in Deutschland",
+    "text": "Unsere Vision ist es, lokalen Gastronomiebetrieben eine echte Alternative zu den großen Plattformen zu bieten – ohne versteckte Kosten und ohne Abhängigkeiten. Als Unternehmen mit Sitz in Deutschland legen wir höchsten Wert auf Qualität, Datenschutz und persönlichen Service.",
+    "approach": {
+      "title": "Unser Full-Service Ansatz",
+      "items": [
+        "Individuelle Beratung für jeden Kunden",
+        "Komplette Einrichtung und Schulung",
+        "Technischer Support & regelmäßige Updates",
+        "Datenschutz nach deutschen Standards"
+      ]
+    }
+  },
+  "contact": {
+    "title": "Starte jetzt mit Gastro2Go.io",
+    "subtitle": "Wir beraten dich gerne persönlich und kostenlos",
+    "form": {
+      "name": "Name",
+      "restaurant": "Restaurant",
+      "email": "E-Mail",
+      "phone": "Telefon (optional)",
+      "message": "Nachricht",
+      "consent": "Ich akzeptiere die Datenschutzbestimmungen und stimme zu, dass meine Daten zur Bearbeitung meiner Anfrage verwendet werden.",
+      "submit": "Anfrage senden",
+      "success": "Vielen Dank für deine Anfrage. Wir melden uns innerhalb von 24 Stunden bei dir."
+    }
+  },
+  "footer": {
+    "company": "© 2025 lytex media UG. Alle Rechte vorbehalten.",
+    "links": {
+      "imprint": "Impressum",
+      "privacy": "Datenschutz",
+      "terms": "AGB",
+      "contact": "Kontakt"
+    },
+    "social": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "linkedin": "LinkedIn"
+    }
+  }
+}

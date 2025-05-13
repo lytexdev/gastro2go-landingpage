@@ -1,0 +1,155 @@
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-left {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  
+  &.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fade-in-right {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  
+  &.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.scale-in {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  
+  &.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Animation delays for cascading effects
+@for $i from 1 through 10 {
+  .delay-#{$i} {
+    transition-delay: #{$i * 0.1}s;
+  }
+}
+
+// Basis-Animationen
+.animate-on-scroll {
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &.animate-in {
+    opacity: 1;
+  }
+}
+
+// Fade Up Animation
+.fade-up {
+  transform: translateY(30px);
+  
+  &.animate-in {
+    transform: translateY(0);
+  }
+}
+
+// Fade In Left Animation
+.fade-left {
+  transform: translateX(-30px);
+  
+  &.animate-in {
+    transform: translateX(0);
+  }
+}
+
+// Fade In Right Animation
+.fade-right {
+  transform: translateX(30px);
+  
+  &.animate-in {
+    transform: translateX(0);
+  }
+}
+
+// Scale Up Animation
+.scale-up {
+  transform: scale(0.95);
+  
+  &.animate-in {
+    transform: scale(1);
+  }
+}
+
+// Rotate In Animation
+.rotate-in {
+  transform: rotate(-5deg) scale(0.95);
+  
+  &.animate-in {
+    transform: rotate(0) scale(1);
+  }
+}
+
+// Blur Animation
+.blur-in {
+  filter: blur(10px);
+  
+  &.animate-in {
+    filter: blur(0);
+  }
+}
+
+// Slide Up with Fade
+.slide-up-fade {
+  transform: translateY(30px);
+  opacity: 0;
+  
+  &.animate-in {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// Slide In with Scale
+.slide-scale {
+  transform: translateY(30px) scale(0.95);
+  opacity: 0;
+  
+  &.animate-in {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+// Bounce In
+.bounce-in {
+  transform: scale(0.3);
+  opacity: 0;
+  
+  &.animate-in {
+    transform: scale(1);
+    opacity: 1;
+    animation: bounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+}
+
+@keyframes bounce {
+  0% { transform: scale(0.3); }
+  50% { transform: scale(1.05); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
