@@ -27,22 +27,8 @@
       </nav>
       
       <div class="menu-footer">
-        <div class="language-switcher">
-          <button 
-            class="language-btn" 
-            :class="{ 'active': $i18n.locale === 'de' }" 
-            @click="switchLanguage('de')"
-          >
-            DE
-          </button>
-          <span class="language-separator">|</span>
-          <button 
-            class="language-btn" 
-            :class="{ 'active': $i18n.locale === 'en' }" 
-            @click="switchLanguage('en')"
-          >
-            EN
-          </button>
+        <div class="language-switcher-container">
+          <LanguageSwitcher />
         </div>
         
         <BaseButton 
@@ -59,6 +45,7 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue';
+import LanguageSwitcher from '../ui/LanguageSwitcher.vue';
 
 const props = defineProps({
   isOpen: {
@@ -81,14 +68,6 @@ const menuItems = computed(() => [
   { label: useI18n().t('nav.about'), url: '#about' },
   { label: useI18n().t('nav.contact'), url: '#contact' }
 ]);
-
-const switchLanguage = (locale) => {
-  const { locale: currentLocale, setLocale } = useI18n();
-  
-  if (currentLocale.value !== locale) {
-    setLocale(locale);
-  }
-};
 
 const registerAction = () => {
   close();
@@ -232,28 +211,10 @@ watch(() => props.isOpen, (isOpen) => {
     padding: $spacing-6 $spacing-4;
     border-top: 1px solid $gray-lighter;
     
-    .language-switcher {
-      @include flex-center;
+    .language-switcher-container {
+      display: flex;
+      justify-content: center;
       margin-bottom: $spacing-4;
-    }
-    
-    .language-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-weight: $font-weight-medium;
-      color: $gray;
-      padding: $spacing-1 $spacing-2;
-      transition: color 0.2s ease;
-      
-      &:hover, &.active {
-        color: $primary;
-      }
-    }
-    
-    .language-separator {
-      color: $gray-light;
-      margin: 0 $spacing-1;
     }
   }
 }

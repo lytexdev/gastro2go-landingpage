@@ -11,7 +11,10 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/images/logo.svg' }
-      ]
+      ],
+      htmlAttrs: {
+        lang: 'de'
+      }
     },
     pageTransition: { name: 'page', mode: 'out-in' }
   },
@@ -21,27 +24,19 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
   ],
   i18n: {
+    bundle: {
+      optimizeTranslationDirective: false
+    },
+    vueI18n: './i18n.config.ts',
     locales: [
-      {
-        code: 'de',
-        name: 'Deutsch',
-        file: 'de.json'
-      },
-      {
-        code: 'en',
-        name: 'English',
-        file: 'en.json'
-      }
+      { code: 'de', iso: 'de-DE', file: 'de.json', name: 'Deutsch' },
+      { code: 'en', iso: 'en-US', file: 'en.json', name: 'English' }
     ],
     defaultLocale: 'de',
     strategy: 'prefix_except_default',
-    lazy: true,
+    detectBrowserLanguage: false,
     langDir: 'locales/',
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: 'i18n_redirected',
-      redirectOn: 'root',
-    }
+    lazy: true
   },
   vite: {
     css: {
@@ -67,5 +62,9 @@ export default defineNuxtConfig({
   },
   routeRules: {
     '/': { prerender: true },
+    '/images/**': { static: true }
+  },
+  image: {
+    dir: 'public/images'
   }
 })

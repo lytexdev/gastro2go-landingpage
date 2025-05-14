@@ -13,22 +13,58 @@
         </div>
         
         <div class="nav-actions">
+          <LanguageSwitcher class="mr-3" />
           <BaseButton variant="primary" size="md" @click="scrollToContact">
             {{ $t('nav.cta') }}
           </BaseButton>
         </div>
+
+        <button 
+          class="mobile-menu-toggle" 
+          @click="toggleMobileMenu"
+          :aria-expanded="isMobileMenuOpen"
+          aria-label="Toggle mobile menu"
+        >
+          <span class="hamburger" :class="{ 'is-active': isMobileMenuOpen }"></span>
+        </button>
       </nav>
     </div>
+
+    <MobileMenu 
+      :is-open="isMobileMenuOpen" 
+      @close="closeMobileMenu"
+    />
   </header>
 </template>
 
 <script setup>
-const scrollToContact = () => {
-  const contactSection = document.getElementById('contact');
-  if (contactSection) {
-    contactSection.scrollIntoView({ behavior: 'smooth' });
+import { ref } from 'vue'
+import LanguageSwitcher from '~/components/ui/LanguageSwitcher.vue'
+import MobileMenu from '~/components/layout/MobileMenu.vue'
+
+const isMobileMenuOpen = ref(false)
+
+const toggleMobileMenu = () => {
+  isMobileMenuOpen.value = !isMobileMenuOpen.value
+  if (isMobileMenuOpen.value) {
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = ''
   }
-};
+}
+
+const closeMobileMenu = () => {
+  isMobileMenuOpen.value = false
+  document.body.style.overflow = ''
+}
+
+const scrollToContact = () => {
+  const contactSection = document.getElementById('contact')
+  if (contactSection) {
+    contactSection.scrollIntoView({ behavior: 'smooth' })
+  }
+  closeMobileMenu()
+}
 </script>
 
 <style lang="scss" scoped>
@@ -52,6 +88,7 @@ const scrollToContact = () => {
 
 .logo {
   display: block;
+  z-index: 2;
   
   img {
     height: 40px;
@@ -80,8 +117,65 @@ const scrollToContact = () => {
 }
 
 .nav-actions {
+  display: flex;
+  align-items: center;
+  
   @media (max-width: $breakpoint-md) {
     display: none;
+  }
+}
+
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  z-index: 2;
+  
+  @media (max-width: $breakpoint-md) {
+    display: block;
+  }
+}
+
+.hamburger {
+  display: block;
+  position: relative;
+  width: 24px;
+  height: 2px;
+  background: var(--color-text);
+  transition: all 0.3s ease;
+  
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    background: var(--color-text);
+    transition: all 0.3s ease;
+  }
+  
+  &::before {
+    top: -8px;
+  }
+  
+  &::after {
+    bottom: -8px;
+  }
+  
+  &.is-active {
+    background: transparent;
+    
+    &::before {
+      transform: rotate(45deg);
+      top: 0;
+    }
+    
+    &::after {
+      transform: rotate(-45deg);
+      bottom: 0;
+    }
   }
 }
 </style> 

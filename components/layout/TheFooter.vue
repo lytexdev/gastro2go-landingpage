@@ -65,21 +65,7 @@
               <li><a href="/terms" class="footer-link">{{ $t('footer.links.terms') }}</a></li>
               <li>
                 <div class="language-selector">
-                  <button 
-                    class="language-btn" 
-                    :class="{ 'active': $i18n.locale === 'de' }" 
-                    @click="switchLanguage('de')"
-                  >
-                    DE
-                  </button>
-                  <span class="language-separator">|</span>
-                  <button 
-                    class="language-btn" 
-                    :class="{ 'active': $i18n.locale === 'en' }" 
-                    @click="switchLanguage('en')"
-                  >
-                    EN
-                  </button>
+                  <LanguageSwitcher />
                 </div>
               </li>
             </ul>
@@ -95,13 +81,7 @@
 </template>
 
 <script setup>
-const switchLanguage = (locale) => {
-  const { locale: currentLocale, setLocale } = useI18n();
-  
-  if (currentLocale.value !== locale) {
-    setLocale(locale);
-  }
-};
+import LanguageSwitcher from '../ui/LanguageSwitcher.vue';
 </script>
 
 <style lang="scss" scoped>
@@ -216,26 +196,6 @@ const switchLanguage = (locale) => {
     
     .language-selector {
       margin-top: $spacing-2;
-    }
-    
-    .language-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-weight: $font-weight-medium;
-      color: $gray;
-      padding: $spacing-1 $spacing-2;
-      padding-left: 0;
-      transition: color 0.2s ease;
-      
-      &:hover, &.active {
-        color: $primary;
-      }
-    }
-    
-    .language-separator {
-      color: $gray-light;
-      margin: 0 $spacing-1;
     }
   }
   

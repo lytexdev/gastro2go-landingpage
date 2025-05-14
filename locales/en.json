@@ -14,7 +14,8 @@
     "contact": "Contact",
     "language": "Language",
     "login": "Login",
-    "register": "Register"
+    "register": "Register",
+    "cta": "Start now"
   },
   "hero": {
     "title": "Your Restaurant. Your Platform.",
@@ -228,5 +229,8 @@
       "instagram": "Instagram",
       "linkedin": "LinkedIn"
     }
+  },
+  "language": {
+    "switch": "Switch to {lang}"
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="landing-page">
+  <div class="landing-page" v-i18n-seo="{ title: 'meta.title', description: 'meta.description', keywords: 'meta.keywords' }">
     <HeroSection />
     <BenefitsSection />
     <DemoSection />
@@ -44,7 +44,7 @@ useHead({
 });
 
 // Add structured data for SEO
-const jsonLd = {
+const jsonLd = computed(() => ({
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
   'name': 'Gastro2Go.io',
@@ -62,15 +62,34 @@ const jsonLd = {
     'ratingValue': '4.8',
     'ratingCount': '12'
   }
-};
+}));
 
 // Add structured data to head
 onMounted(() => {
-  const script = document.createElement('script');
-  script.type = 'application/ld+json';
-  script.text = JSON.stringify(jsonLd);
-  document.head.appendChild(script);
+  updateStructuredData();
+  
+  // Watch for locale changes to update structured data
+  const { locale } = useI18n();
+  watch(locale, () => {
+    updateStructuredData();
+  });
 });
+
+// Function to update structured data
+const updateStructuredData = () => {
+  // Remove old script tag if exists
+  const existingScript = document.getElementById('structured-data');
+  if (existingScript) {
+    existingScript.remove();
+  }
+  
+  // Add new script tag with updated data
+  const script = document.createElement('script');
+  script.id = 'structured-data';
+  script.type = 'application/ld+json';
+  script.text = JSON.stringify(jsonLd.value);
+  document.head.appendChild(script);
+};
 </script>
 
 <style>

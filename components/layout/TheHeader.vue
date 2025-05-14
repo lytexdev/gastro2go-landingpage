@@ -32,53 +32,20 @@
           </ul>
           
           <div class="nav-actions">
-            <div class="language-switcher">
-              <button 
-                class="language-btn" 
-                :class="{ 'active': $i18n.locale === 'de' }" 
-                @click="switchLanguage('de')"
-              >
-                DE
-              </button>
-              <span class="language-separator">|</span>
-              <button 
-                class="language-btn" 
-                :class="{ 'active': $i18n.locale === 'en' }" 
-                @click="switchLanguage('en')"
-              >
-                EN
-              </button>
-            </div>
+            <LanguageSwitcher class="desktop-language-switcher" />
             <BaseButton 
               variant="primary"
               size="sm"
               class="nav-cta"
               @click="scrollToContact"
             >
-              {{ $t('nav.register') }}
+              {{ $t('nav.cta') }}
             </BaseButton>
           </div>
         </nav>
         
         <div class="mobile-actions">
-          <div class="language-switcher">
-            <button 
-              class="language-btn" 
-              :class="{ 'active': $i18n.locale === 'de' }" 
-              @click="switchLanguage('de')"
-            >
-              DE
-            </button>
-            <span class="language-separator">|</span>
-            <button 
-              class="language-btn" 
-              :class="{ 'active': $i18n.locale === 'en' }" 
-              @click="switchLanguage('en')"
-            >
-              EN
-            </button>
-          </div>
-          
+          <LanguageSwitcher class="mobile-language-switcher" />
           <button 
             class="menu-toggle" 
             :class="{ 'is-active': isMenuOpen }" 
@@ -97,6 +64,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
+import LanguageSwitcher from '../ui/LanguageSwitcher.vue';
 
 const isMenuOpen = ref(false);
 const isScrolled = ref(false);
@@ -121,14 +89,6 @@ const closeMenu = () => {
 
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 20;
-};
-
-const switchLanguage = (locale) => {
-  const { locale: currentLocale, setLocale } = useI18n();
-  
-  if (currentLocale.value !== locale) {
-    setLocale(locale);
-  }
 };
 
 const scrollToContact = () => {
@@ -262,37 +222,14 @@ onUnmounted(() => {
     .nav-actions {
       display: flex;
       align-items: center;
+      gap: $spacing-4;
     }
-    
-    .language-switcher {
-      margin-right: $spacing-4;
-      display: flex;
-      align-items: center;
-    }
-  }
-  
-  .language-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-weight: $font-weight-medium;
-    color: $gray;
-    padding: $spacing-1 $spacing-2;
-    transition: color 0.2s ease;
-    
-    &:hover, &.active {
-      color: $primary;
-    }
-  }
-  
-  .language-separator {
-    color: $gray-light;
-    margin: 0 $spacing-1;
   }
   
   .mobile-actions {
     display: none;
     align-items: center;
+    gap: $spacing-4;
   }
   
   .menu-toggle {
@@ -304,7 +241,6 @@ onUnmounted(() => {
     background: none;
     border: none;
     cursor: pointer;
-    margin-left: $spacing-4;
     
     .menu-bar {
       width: 100%;
@@ -328,6 +264,14 @@ onUnmounted(() => {
         }
       }
     }
+  }
+
+  .desktop-language-switcher {
+    display: block;
+  }
+
+  .mobile-language-switcher {
+    display: none;
   }
   
   @media (max-width: $breakpoint-lg) {
@@ -378,25 +322,28 @@ onUnmounted(() => {
         align-items: flex-start;
         margin-top: $spacing-6;
         width: 100%;
-        
-        .language-switcher {
-          margin-right: 0;
-          margin-bottom: $spacing-5;
-        }
+        gap: $spacing-5;
         
         .nav-cta {
           width: 100%;
         }
+      }
+
+      .desktop-language-switcher {
+        display: none;
       }
     }
     
     .mobile-actions {
       display: flex;
     }
+
+    .mobile-language-switcher {
+      display: block;
+    }
   }
 }
 
-// Make room for fixed header
 body {
   padding-top: 80px;
   
