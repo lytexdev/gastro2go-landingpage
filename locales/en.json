@@ -58,7 +58,7 @@
   },
   "pricing": {
     "title": "Transparent pricing without surprises",
-    "subtitle": "Save up to 30% compared to commission-based platforms",
+    "subtitle": "Save compared to commission-based platforms",
     "monthly": "Monthly",
     "yearly": "Yearly",
     "tier": {
@@ -79,7 +79,7 @@
       ],
       "cta": "Start now"
     },
-    "compare": "Delivery services charge 13-30% commission per order"
+    "compare": "Other services often charge high commissions per order"
   },
   "features": {
     "title": "All features at a glance",
