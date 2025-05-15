@@ -2,21 +2,22 @@
   <section id="about" class="about-section">
     <div class="container">
       <div class="section-header text-center">
-        <h2 class="fade-in">{{ $t('about.title') }}</h2>
-        <p class="section-subtitle fade-in">{{ $t('about.subtitle') }}</p>
+        <h2 class="fade-in" v-animate="{ animation: 'fadeInUp', delay: 0 }">{{ $t('about.title') }}</h2>
+        <p class="section-subtitle fade-in" v-animate="{ animation: 'fadeInUp', delay: 200 }">{{ $t('about.subtitle') }}</p>
       </div>
       
       <div class="about-content">
-        <div class="about-text fade-in">
+        <div class="about-text fade-in" v-animate="{ animation: 'fadeInLeft', delay: 300 }">
           <p class="about-description">{{ $t('about.text') }}</p>
           
           <div class="approach-wrapper">
-            <h3>{{ $t('about.approach.title') }}</h3>
+            <h3 v-animate="{ animation: 'fadeInUp', delay: 400 }">{{ $t('about.approach.title') }}</h3>
             <ul class="approach-list">
               <li 
                 v-for="(item, index) in approachItems" 
                 :key="index"
                 class="approach-item"
+                v-animate="{ animation: 'fadeInRight', delay: 500 + (index * 100) }"
               >
                 <div class="approach-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -30,7 +31,7 @@
           </div>
         </div>
         
-        <div class="about-image fade-in">
+        <div class="about-image fade-in" v-animate="{ animation: 'fadeInRight', delay: 400 }">
           <div class="image-wrapper">
             <img 
               src="~/assets/images/restaurant-1.webp" 
@@ -39,6 +40,7 @@
               loading="lazy"
               width="400"
               height="300"
+              v-animate="{ animation: 'zoomIn', delay: 600 }"
             />
             
             <img 
@@ -48,6 +50,7 @@
               loading="lazy"
               width="240"
               height="180"
+              v-animate="{ animation: 'zoomIn', delay: 800 }"
             />
           </div>
         </div>
@@ -61,7 +64,14 @@ import { computed } from 'vue';
 
 const { t } = useI18n();
 
-const approachItems = computed(() => t('about.approach.items'));
+const approachItems = computed(() => {
+  return [
+    t('about.approach.items.0'),
+    t('about.approach.items.1'),
+    t('about.approach.items.2'),
+    t('about.approach.items.3')
+  ];
+});
 
 useScrollAnimation();
 </script>

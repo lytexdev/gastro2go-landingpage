@@ -20,41 +20,95 @@
   "hero": {
     "title": "Dein Restaurant. Deine Plattform.",
     "subtitle": "Bestellungen, Treuepunkte, Reservierungen – alles in einer App.",
+    "typewriter": [
+      "Digitalisiere dein Restaurant ohne Provisionen",
+      "Mehr Umsatz durch digitale Bestellungen",
+      "Stärke deine Kundenbindung mit Treuepunkten",
+      "Spare Zeit und Kosten durch Automatisierung",
+      "Behalte die volle Kontrolle über deine Daten",
+      "Profitiere von 24/7 Support und Updates",
+      "Starte in 30 Tagen ohne Risiko",
+      "Werde Teil der digitalen Gastronomie-Revolution"
+    ],
     "cta": "Jetzt kostenlos starten",
-    "demo": "Live-Demo ansehen"
+    "demo": "Live-Demo ansehen",
+    "stats": {
+      "restaurants": "Restaurants",
+      "orders": "Bestellungen",
+      "customers": "Kunden"
+    }
   },
   "benefits": {
     "title": "Digitalisiere dein Restaurant",
     "subtitle": "Ohne technischen Aufwand und ohne versteckte Kosten",
-    "cards": [
-      {
-        "title": "Kein Stress mit Technik",
-        "description": "Wir liefern alles fertig konfiguriert – du musst dich um nichts kümmern. QR-Codes, App und Webseite inklusive."
+    "items": {
+      "noFees": {
+        "title": "Keine versteckten Kosten",
+        "description": "Fixe monatliche Kosten ohne Provisionen. Du behältst die volle Kontrolle über deine Preise und Einnahmen."
       },
-      {
-        "title": "Volle Kontrolle",
-        "description": "Keine Provisionen, keine versteckten Gebühren. Fixe monatliche Kosten ohne Risiko und jederzeit kündbar."
+      "ownBranding": {
+        "title": "Deine eigene Marke",
+        "description": "Individualisiere die App und Webseite mit deinem Branding. Deine Kunden sehen nur dein Restaurant."
       },
-      {
-        "title": "Treue Kunden",
-        "description": "Mit Punkten & Coupons belohnen und Stammkunden aufbauen. Automatisierte Kampagnen inklusive."
+      "customerData": {
+        "title": "Deine Kundendaten",
+        "description": "Alle Daten gehören dir. Wir helfen dir, deine Kunden besser zu verstehen und zu binden."
       },
-      {
-        "title": "Digitale Bestellungen",
-        "description": "Per QR-Code am Tisch, über deine App oder direkt über die Webseite – du entscheidest, wie bestellt wird."
+      "marketing": {
+        "title": "Marketing-Tools",
+        "description": "Automatisierte Kampagnen, Treueprogramme und personalisierte Angebote für deine Kunden."
+      },
+      "analytics": {
+        "title": "Detaillierte Analysen",
+        "description": "Verstehe dein Geschäft besser mit umfangreichen Statistiken und Echtzeit-Daten."
+      },
+      "support": {
+        "title": "24/7 Support",
+        "description": "Unser Team steht dir rund um die Uhr zur Seite. Schnelle Hilfe bei allen Fragen."
       }
-    ]
+    },
+    "stats": {
+      "title": "Deine Vorteile auf einen Blick",
+      "items": [
+        {
+          "value": "0%",
+          "label": "Provisionen",
+          "description": "Keine versteckten Kosten"
+        },
+        {
+          "value": "24/7",
+          "label": "Support",
+          "description": "Wir sind immer für dich da"
+        },
+        {
+          "value": "100%",
+          "label": "Kontrolle",
+          "description": "Du behältst die volle Kontrolle"
+        },
+        {
+          "value": "30 Tage",
+          "label": "Testphase",
+          "description": "Risikofrei testen"
+        }
+      ]
+    }
   },
   "demo": {
     "title": "So einfach funktioniert's",
     "subtitle": "Sieh dir die Plattform in Aktion an",
-    "try": "Live-Demo jetzt testen",
-    "screens": [
-      "Kunden scannen den QR-Code oder nutzen die App",
-      "Bestellen direkt vom Smartphone ohne Wartezeit",
-      "Bezahlen bargeldlos oder klassisch",
-      "Du erhältst die Bestellung direkt im System"
-    ]
+    "features": [
+      "Einfache Bestellung per QR-Code",
+      "Schnelle Bezahlung",
+      "Digitale Rechnung",
+      "Treuepunkte sammeln"
+    ],
+    "cta": "Live-Demo testen",
+    "steps": {
+      "scan": "QR-Code scannen",
+      "order": "Bestellung aufgeben",
+      "pay": "Bezahlen",
+      "enjoy": "Genießen"
+    }
   },
   "pricing": {
     "title": "Transparente Preise ohne Überraschungen",
@@ -79,93 +133,53 @@
       ],
       "cta": "Jetzt starten"
     },
-    "compare": "Andere Dienste berechnen oft hohe Provisionen pro Bestellung"
+    "compare": "Andere Dienste berechnen oft hohe Provisionen pro Bestellung",
+    "savings": {
+      "title": "Deine Ersparnis",
+      "description": "Im Vergleich zu provisionbasierten Plattformen",
+      "calculate": "Ersparnis berechnen",
+      "monthly": "Monatliche Ersparnis",
+      "yearly": "Jährliche Ersparnis"
+    }
   },
   "features": {
     "title": "Alle Funktionen auf einen Blick",
     "subtitle": "Was Gastro2Go.io von anderen Plattformen unterscheidet",
-    "categories": [
-      {
-        "name": "Bestellsystem",
-        "icon": "shopping-cart",
-        "features": [
-          "QR-Code für Tischbestellungen",
-          "Menü-Management",
-          "Spezialwünsche & Allergene",
-          "Bestellverfolgung in Echtzeit"
-        ]
-      },
-      {
-        "name": "Tischreservierung",
-        "icon": "calendar",
-        "features": [
-          "Online-Reservierungssystem",
-          "Automatische Bestätigungen",
-          "Kundendaten-Speicherung",
-          "Kapazitätsplanung"
-        ]
-      },
-      {
-        "name": "Treueprogramm",
-        "icon": "star",
-        "features": [
-          "Digitale Punkte & Stempel",
-          "Personalisierte Angebote",
-          "Geburtstags-Aktionen",
-          "Automatisierte E-Mails"
-        ]
-      },
-      {
-        "name": "Statistiken",
-        "icon": "bar-chart",
-        "features": [
-          "Tageseinnahmen & Trends",
-          "Beliebteste Produkte",
-          "Kundenanalyse",
-          "Prognosen & Berichte"
-        ]
-      },
-      {
-        "name": "Gutscheine",
-        "icon": "gift",
-        "features": [
-          "Digitale Gutscheine",
-          "Rabatt-Aktionen",
-          "Zeitlich begrenzte Angebote",
-          "Promotion-Tools"
-        ]
-      },
-      {
-        "name": "AYCE-Modus",
-        "icon": "utensils",
-        "features": [
-          "All-You-Can-Eat Steuerung",
-          "Zeitbasierte Abrechnung",
-          "Spezialoptionen für Buffets",
-          "Verschiedene Preiskategorien"
-        ]
-      },
-      {
-        "name": "Benachrichtigungen",
-        "icon": "bell",
-        "features": [
-          "Push-Nachrichten an Kunden",
-          "Status-Updates für Bestellungen",
-          "Erinnerungen für Reservierungen",
-          "Marketing-Kampagnen"
-        ]
-      },
-      {
-        "name": "Sicherheit",
-        "icon": "shield",
-        "features": [
-          "DSGVO-konforme Daten",
-          "Sichere Zahlungsabwicklung",
-          "Verschlüsselte Übertragung",
-          "Regelmäßige Backups"
-        ]
-      }
-    ]
+    "tabs": {
+      "order": "Bestellsystem",
+      "menu": "Menü-Management",
+      "analytics": "Analytics"
+    },
+    "order": {
+      "title": "Digitales Bestellsystem",
+      "description": "Einfach und effizient - von der Bestellung bis zur Bezahlung",
+      "items": [
+        "QR-Code für Tischbestellungen",
+        "Menü-Management",
+        "Spezialwünsche & Allergene",
+        "Bestellverfolgung in Echtzeit"
+      ]
+    },
+    "menu": {
+      "title": "Flexibles Menü-Management",
+      "description": "Verwalte dein Menü einfach und effizient",
+      "items": [
+        "Einfache Menüpflege",
+        "Kategorien & Varianten",
+        "Preisänderungen sofort",
+        "Bildergalerie"
+      ]
+    },
+    "analytics": {
+      "title": "Detaillierte Analysen",
+      "description": "Entscheide datenbasiert und optimiere dein Geschäft",
+      "items": [
+        "Umsatz & Bestellungen",
+        "Beliebteste Produkte",
+        "Kundenverhalten",
+        "Trends & Prognosen"
+      ]
+    }
   },
   "testimonials": {
     "title": "Was unsere Kunden sagen",
@@ -174,19 +188,23 @@
       {
         "quote": "Seit wir mit Gastro2Go.io arbeiten, sind unsere Abläufe effizienter geworden. Die Gäste lieben die digitale Bestellung und wir sparen Zeit und Geld.",
         "author": "Marco Rossi",
-        "restaurant": "Trattoria Bella Italia, München"
+        "restaurant": "Trattoria Bella Italia, München",
+        "role": "Inhaber"
       },
       {
         "quote": "Endlich keine hohen Provisionen mehr! Das System ist einfach zu bedienen und der Support ist immer schnell zur Stelle, wenn wir Hilfe brauchen.",
         "author": "Lisa Müller",
-        "restaurant": "Café Zentral, Berlin"
+        "restaurant": "Café Zentral, Berlin",
+        "role": "Geschäftsführerin"
       },
       {
         "quote": "Das Treueprogramm hat unseren Umsatz deutlich gesteigert. Die Kunden kommen regelmäßiger und bestellen mehr, um Punkte zu sammeln.",
         "author": "Thomas Weber",
-        "restaurant": "Brauhaus zum Löwen, Hamburg"
+        "restaurant": "Brauhaus zum Löwen, Hamburg",
+        "role": "Betriebsleiter"
       }
-    ]
+    ],
+    "cta": "Mehr Erfolgsgeschichten"
   },
   "about": {
     "title": "Über lytex media",
@@ -199,6 +217,27 @@
         "Komplette Einrichtung und Schulung",
         "Technischer Support & regelmäßige Updates",
         "Datenschutz nach deutschen Standards"
+      ]
+    },
+    "team": {
+      "title": "Unser Team",
+      "description": "Erfahrene Experten aus Gastronomie und Technologie"
+    },
+    "values": {
+      "title": "Unsere Werte",
+      "items": [
+        {
+          "title": "Transparenz",
+          "description": "Keine versteckten Kosten oder Klauseln"
+        },
+        {
+          "title": "Innovation",
+          "description": "Ständige Weiterentwicklung unserer Plattform"
+        },
+        {
+          "title": "Service",
+          "description": "Persönliche Betreuung und schneller Support"
+        }
       ]
     }
   },
@@ -213,7 +252,15 @@
       "message": "Nachricht",
       "consent": "Ich akzeptiere die Datenschutzbestimmungen und stimme zu, dass meine Daten zur Bearbeitung meiner Anfrage verwendet werden.",
       "submit": "Anfrage senden",
-      "success": "Vielen Dank für deine Anfrage. Wir melden uns innerhalb von 24 Stunden bei dir."
+      "success": "Vielen Dank für deine Anfrage. Wir melden uns innerhalb von 24 Stunden bei dir.",
+      "error": "Es ist ein Fehler aufgetreten. Bitte versuche es später noch einmal."
+    },
+    "info": {
+      "title": "Kontaktiere uns",
+      "address": "lytex media UG\nMusterstraße 123\n12345 Musterstadt",
+      "phone": "+49 123 456789",
+      "email": "info@gastro2go.io",
+      "hours": "Mo-Fr: 9:00 - 18:00 Uhr"
     }
   },
   "footer": {
@@ -228,6 +275,14 @@
       "facebook": "Facebook",
       "instagram": "Instagram",
       "linkedin": "LinkedIn"
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "description": "Bleibe auf dem Laufenden über neue Features und Updates",
+      "placeholder": "Deine E-Mail-Adresse",
+      "submit": "Abonnieren",
+      "success": "Vielen Dank für deine Anmeldung!",
+      "error": "Es ist ein Fehler aufgetreten. Bitte versuche es später noch einmal."
     }
   }
 }

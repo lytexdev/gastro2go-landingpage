@@ -1,13 +1,13 @@
 <template>
   <section id="pricing" class="pricing-section">
     <div class="container">
-      <div class="section-header text-center">
+      <div class="section-header text-center" v-animate="{ animation: 'fadeInUp', delay: 0 }">
         <h2>{{ $t('pricing.title') }}</h2>
         <p class="section-subtitle">{{ $t('pricing.subtitle') }}</p>
       </div>
       
       <div class="pricing-wrapper">
-        <div class="pricing-card">
+        <div class="pricing-card" v-animate="{ animation: 'fadeInLeft', delay: 200 }">
           <div class="pricing-header">
             <h3 class="pricing-name">{{ $t('pricing.tier.name') }}</h3>
             <div class="pricing-price">
@@ -20,7 +20,10 @@
           
           <div class="pricing-features">
             <ul class="features-list">
-              <li v-for="(feature, index) in features" :key="index" class="feature-item">
+              <li v-for="(feature, index) in features" 
+                  :key="index" 
+                  class="feature-item"
+                  v-animate="{ animation: 'fadeInRight', delay: 300 + (index * 100) }">
                 <svg xmlns="http://www.w3.org/2000/svg" class="feature-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                   <path d="M5 12l5 5l10 -10"></path>
@@ -36,15 +39,16 @@
               size="lg"
               block
               @click="scrollToContact"
+              v-animate="{ animation: 'zoomIn', delay: 1200 }"
             >
               {{ $t('pricing.tier.cta') }}
             </BaseButton>
           </div>
         </div>
         
-        <div class="pricing-compare">
+        <div class="pricing-compare" v-animate="{ animation: 'fadeInRight', delay: 400 }">
           <div class="compare-content">
-            <div class="compare-icon">
+            <div class="compare-icon" v-animate="{ animation: 'zoomIn', delay: 500 }">
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                 <path d="M5 7l5 5l-5 5"></path>
@@ -52,9 +56,9 @@
               </svg>
             </div>
             <div class="compare-text">
-              <h4>{{ $t('pricing.compare') }}</h4>
+              <h4 v-animate="{ animation: 'fadeInUp', delay: 600 }">{{ $t('pricing.compare') }}</h4>
               
-              <div class="savings-calculator">
+              <div class="savings-calculator" v-animate="{ animation: 'fadeInUp', delay: 700 }">
                 <div class="calculator-label">{{ calculatorLabel }}</div>
                 <div class="calculator-slider">
                   <input 
@@ -72,15 +76,15 @@
                   </div>
                 </div>
                 <div class="calculator-results">
-                  <div class="result-item">
+                  <div class="result-item" v-animate="{ animation: 'fadeInRight', delay: 800 }">
                     <div class="result-label">Gastro2Go.io</div>
                     <div class="result-value">{{ fixedPrice }}€/Monat</div>
                   </div>
-                  <div class="result-item">
+                  <div class="result-item" v-animate="{ animation: 'fadeInRight', delay: 900 }">
                     <div class="result-label">Andere Dienste</div>
                     <div class="result-value">{{ lieferandoPrice }}€/Monat</div>
                   </div>
-                  <div class="result-item savings">
+                  <div class="result-item savings" v-animate="{ animation: 'fadeInRight', delay: 1000 }">
                     <div class="result-label">Deine Ersparnis</div>
                     <div class="result-value">{{ savings }}€/Monat</div>
                   </div>
@@ -100,7 +104,19 @@ import BaseButton from '../ui/BaseButton.vue';
 
 const { t } = useI18n();
 
-const features = computed(() => t('pricing.tier.features'));
+const features = computed(() => {
+  return [
+    t('pricing.tier.features.0'),
+    t('pricing.tier.features.1'),
+    t('pricing.tier.features.2'),
+    t('pricing.tier.features.3'),
+    t('pricing.tier.features.4'),
+    t('pricing.tier.features.5'),
+    t('pricing.tier.features.6'),
+    t('pricing.tier.features.7'),
+    t('pricing.tier.features.8')
+  ];
+});
 const monthlyRevenue = ref(5000);
 const fixedPrice = 49;
 

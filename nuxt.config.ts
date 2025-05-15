@@ -24,9 +24,6 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
   ],
   i18n: {
-    bundle: {
-      optimizeTranslationDirective: false
-    },
     vueI18n: './i18n.config.ts',
     locales: [
       { code: 'de', iso: 'de-DE', file: 'de.json', name: 'Deutsch' },
@@ -36,7 +33,11 @@ export default defineNuxtConfig({
     strategy: 'prefix_except_default',
     detectBrowserLanguage: false,
     langDir: 'locales/',
-    lazy: true
+    lazy: true,
+    compilation: {
+      strictMessage: false,
+      escapeHtml: false
+    }
   },
   vite: {
     css: {

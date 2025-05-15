@@ -1,128 +1,111 @@
 <template>
   <section id="benefits" class="benefits-section">
     <div class="container">
-      <div class="section-header text-center">
-        <h2 class="fade-in">{{ $t('benefits.title') }}</h2>
-        <p class="section-subtitle fade-in">{{ $t('benefits.subtitle') }}</p>
+      <div class="section-header text-center" v-animate="{ animation: 'fadeInUp', delay: 0 }">
+        <h2 class="title-split" v-animate="{ animation: 'fadeInUp', delay: 200 }">
+          {{ $t('benefits.title') }}
+        </h2>
+        <p class="section-subtitle" v-animate="{ animation: 'fadeInUp', delay: 400 }">
+          {{ $t('benefits.subtitle') }}
+        </p>
       </div>
       
       <div class="benefits-grid">
-        <BaseCard 
+        <div 
           v-for="(benefit, index) in benefits" 
           :key="index"
-          :title="benefit.title"
-          elevated
-          class="benefit-card fade-in"
+          class="benefit-card"
+          v-animate="{ animation: 'fadeInUp', delay: 200 + (index * 100) }"
         >
-          <template #icon>
-            <div class="card-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <component :is="getIconComponent(index)" />
-              </svg>
+          <div class="benefit-icon-wrapper" v-animate="{ animation: 'zoomIn', delay: 300 + (index * 100) }">
+            <div class="benefit-icon">
+              <component :is="benefit.icon" />
             </div>
-          </template>
-          
-          <p>{{ benefit.description }}</p>
-        </BaseCard>
+            <div class="icon-background"></div>
+          </div>
+          <h3 class="benefit-title" v-animate="{ animation: 'fadeInUp', delay: 400 + (index * 100) }">
+            {{ benefit.title }}
+          </h3>
+          <p class="benefit-description" v-animate="{ animation: 'fadeInUp', delay: 500 + (index * 100) }">
+            {{ benefit.description }}
+          </p>
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
 import useScrollAnimation from '~/composables/useScrollAnimation';
 
 const { t } = useI18n();
 
 const benefits = computed(() => [
   {
-    title: t('benefits.cards.0.title'),
-    description: t('benefits.cards.0.description'),
-    icon: 'wrench'
+    icon: 'IconNoFees',
+    title: t('benefits.items.noFees.title'),
+    description: t('benefits.items.noFees.description')
   },
   {
-    title: t('benefits.cards.1.title'),
-    description: t('benefits.cards.1.description'),
-    icon: 'shield'
+    icon: 'IconOwnBranding',
+    title: t('benefits.items.ownBranding.title'),
+    description: t('benefits.items.ownBranding.description')
   },
   {
-    title: t('benefits.cards.2.title'),
-    description: t('benefits.cards.2.description'),
-    icon: 'star'
+    icon: 'IconCustomerData',
+    title: t('benefits.items.customerData.title'),
+    description: t('benefits.items.customerData.description')
   },
   {
-    title: t('benefits.cards.3.title'),
-    description: t('benefits.cards.3.description'),
-    icon: 'qrcode'
+    icon: 'IconMarketing',
+    title: t('benefits.items.marketing.title'),
+    description: t('benefits.items.marketing.description')
+  },
+  {
+    icon: 'IconAnalytics',
+    title: t('benefits.items.analytics.title'),
+    description: t('benefits.items.analytics.description')
+  },
+  {
+    icon: 'IconSupport',
+    title: t('benefits.items.support.title'),
+    description: t('benefits.items.support.description')
   }
 ]);
 
-const getIconComponent = (index) => {
-  // Map each benefit to a specific icon template
-  switch (index) {
-    case 0:
-      return {
-        // Wrench icon
-        template: `
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M7 10h3v-3l-3.5 -3.5a6 6 0 0 1 8 8l6 6a2 2 0 0 1 -3 3l-6 -6a6 6 0 0 1 -8 -8l3.5 3.5"></path>
-        `
-      };
-    case 1:
-      return {
-        // Shield Check icon
-        template: `
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M9 12l2 2l4 -4"></path>
-          <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3"></path>
-        `
-      };
-    case 2:
-      return {
-        // Star icon
-        template: `
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path>
-        `
-      };
-    case 3:
-      return {
-        // QR Code icon
-        template: `
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M4 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"></path>
-          <path d="M7 17l0 .01"></path>
-          <path d="M14 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"></path>
-          <path d="M7 7l0 .01"></path>
-          <path d="M4 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"></path>
-          <path d="M17 7l0 .01"></path>
-          <path d="M14 14l3 0"></path>
-          <path d="M20 14l0 .01"></path>
-          <path d="M14 14l0 3"></path>
-          <path d="M14 20l3 0"></path>
-          <path d="M17 17l3 0"></path>
-          <path d="M20 17l0 3"></path>
-        `
-      };
-    default:
-      return {
-        template: `
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
-        `
-      };
-  }
-};
-
-// Animation initialisieren
-useScrollAnimation();
+onMounted(() => {
+  useScrollAnimation();
+});
 </script>
 
 <style lang="scss" scoped>
+$spacing-2: 0.5rem;
+$spacing-3: 0.75rem;
+$spacing-4: 1rem;
+$spacing-6: 1.5rem;
+$spacing-8: 2rem;
+$spacing-10: 2.5rem;
+$font-size-base: 1rem;
+$font-size-lg: 1.125rem;
+$font-size-2xl: 1.5rem;
+$font-weight-medium: 500;
+$border-radius: 0.375rem;
+$border-radius-lg: 0.5rem;
+$border-radius-xl: 0.75rem;
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+$shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+$breakpoint-lg: 1024px;
+$breakpoint-md: 768px;
+
 .benefits-section {
   @include section;
   position: relative;
+  overflow: hidden;
   
   &::before {
     content: '';
@@ -131,7 +114,7 @@ useScrollAnimation();
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom right, rgba($primary, 0.03), transparent);
+    background: linear-gradient(135deg, rgba($primary, 0.02) 0%, rgba($secondary, 0.02) 100%);
     z-index: -1;
   }
   
@@ -142,6 +125,23 @@ useScrollAnimation();
     h2 {
       color: $dark;
       margin-bottom: $spacing-4;
+      position: relative;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 4px;
+        background-color: $primary;
+        transition: width 0.8s ease-in-out;
+      }
+      
+      &:hover::after {
+        width: 100px;
+      }
     }
     
     .section-subtitle {
@@ -152,66 +152,142 @@ useScrollAnimation();
   
   .benefits-grid {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: $spacing-6;
     
-    @media (min-width: $breakpoint-sm) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    
     @media (min-width: $breakpoint-lg) {
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
     }
   }
   
   .benefit-card {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+    background-color: $white;
+    border-radius: $border-radius-lg;
+    padding: $spacing-6;
+    box-shadow: $shadow-md;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
     
-    .card-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba($primary, 0.05) 0%, rgba($secondary, 0.05) 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    
+    &:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: $shadow-xl;
+      
+      &::before {
+        opacity: 1;
+      }
+      
+      .benefit-icon-wrapper {
+        transform: scale(1.1) rotate(5deg);
+        
+        .benefit-icon {
+          background: linear-gradient(135deg, $primary 0%, $secondary 100%);
+          
+          svg {
+            color: $white;
+            transform: scale(1.1);
+          }
+        }
+        
+        .icon-background {
+          transform: scale(1.2);
+          opacity: 0.1;
+        }
+      }
+    }
+    
+    .benefit-icon-wrapper {
+      position: relative;
       width: 64px;
       height: 64px;
       margin-bottom: $spacing-4;
-      color: $primary;
-      background-color: rgba($primary, 0.1);
-      border-radius: 50%;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       
-      svg {
-        width: 28px;
-        height: 28px;
+      .benefit-icon {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: $border-radius-lg;
+        background-color: rgba($primary, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 2;
+        
+        svg {
+          width: 32px;
+          height: 32px;
+          color: $primary;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+      }
+      
+      .icon-background {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, rgba($primary, 0.2) 0%, transparent 70%);
+        border-radius: $border-radius-lg;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1;
       }
     }
+    
+    .benefit-title {
+      font-size: $font-size-xl;
+      font-weight: 600;
+      color: $dark;
+      margin-bottom: $spacing-3;
+      transition: color 0.3s ease;
+    }
+    
+    .benefit-description {
+      font-size: $font-size-base;
+      color: $gray-dark;
+      line-height: 1.6;
+      transition: color 0.3s ease;
+    }
   }
-  
-  // Fade-in animations with cascading delays
-  .fade-in {
-    &:nth-child(1) {
-      transition-delay: 0.1s;
-    }
-    
-    &:nth-child(2) {
-      transition-delay: 0.2s;
-    }
-    
-    &:nth-child(3) {
-      transition-delay: 0.3s;
-    }
-    
-    &:nth-child(4) {
-      transition-delay: 0.4s;
-    }
-    
-    &:nth-child(5) {
-      transition-delay: 0.5s;
-    }
-    
-    &:nth-child(6) {
-      transition-delay: 0.6s;
-    }
+}
+
+// Animation keyframes
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
   }
 }
 </style>

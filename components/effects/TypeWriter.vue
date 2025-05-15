@@ -1,154 +1,82 @@
 <template>
-  <span :class="['typewriter', { 'typewriter-done': done }]">
-    {{ displayText }}<span class="typewriter-cursor" :class="{ 'blink': cursorBlink }">|</span>
-  </span>
+  <span class="typewriter-text">{{ displayText }}</span>
 </template>
 
 <script setup>
 import { ref, onMounted, watch } from 'vue';
 
 const props = defineProps({
-  text: {
-    type: String,
+  texts: {
+    type: Array,
     required: true
-  },
-  startDelay: {
-    type: Number,
-    default: 200
   },
   speed: {
     type: Number,
-    default: 50 // ms per character
-  },
-  blinkCursor: {
-    type: Boolean,
-    default: true
+    default: 100
   },
   erasePause: {
     type: Number,
-    default: 2000 // ms to pause before erasing
-  },
-  eraseSpeed: {
-    type: Number,
-    default: 30 // ms per character during erasing
+    default: 2000
   },
   infinite: {
     type: Boolean,
-    default: false // Whether to repeat indefinitely
-  },
-  texts: {
-    type: Array,
-    default: () => [] // Array of strings to cycle through
+    default: true
   }
 });
 
 const displayText = ref('');
-const cursorBlink = ref(false);
-const done = ref(false);
-let currentTextIndex = 0;
-let typingTimeout = null;
+const currentIndex = ref(0);
+const isDeleting = ref(false);
+const typingSpeed = ref(props.speed);
 
-// Get current text to display
-const getCurrentText = () => {
-  if (props.texts.length > 0) {
-    return props.texts[currentTextIndex];
+const type = () => {
+  const current = props.texts[currentIndex.value];
+  
+  if (isDeleting.value) {
+    displayText.value = current.substring(0, displayText.value.length - 1);
+  } else {
+    displayText.value = current.substring(0, displayText.value.length + 1);
   }
-  return props.text;
+
+  let typeSpeed = isDeleting.value ? props.speed / 2 : props.speed;
+
+  if (!isDeleting.value && displayText.value === current) {
+    isDeleting.value = true;
+    typeSpeed = props.erasePause;
+  } else if (isDeleting.value && displayText.value === '') {
+    isDeleting.value = false;
+    currentIndex.value = (currentIndex.value + 1) % props.texts.length;
+    typeSpeed = 500;
+  }
+
+  setTimeout(type, typeSpeed);
 };
 
-// Start typing animation
-const startTyping = () => {
-  const textToType = getCurrentText();
-  let charIndex = 0;
-  displayText.value = '';
-  cursorBlink.value = false;
-  
-  const typeNextChar = () => {
-    if (charIndex < textToType.length) {
-      displayText.value += textToType.charAt(charIndex);
-      charIndex++;
-      typingTimeout = setTimeout(typeNextChar, props.speed);
-    } else {
-      cursorBlink.value = props.blinkCursor;
-      
-      // If we should erase and continue
-      if (props.infinite || props.texts.length > 1) {
-        setTimeout(startErasing, props.erasePause);
-      } else {
-        done.value = true;
-      }
-    }
-  };
-  
-  typingTimeout = setTimeout(typeNextChar, props.startDelay);
-};
-
-// Start erasing animation
-const startErasing = () => {
-  cursorBlink.value = false;
-  
-  const eraseNextChar = () => {
-    if (displayText.value.length > 0) {
-      displayText.value = displayText.value.slice(0, -1);
-      typingTimeout = setTimeout(eraseNextChar, props.eraseSpeed);
-    } else {
-      // Move to next text
-      if (props.texts.length > 0) {
-        currentTextIndex = (currentTextIndex + 1) % props.texts.length;
-      }
-      
-      // Start typing the next text
-      setTimeout(startTyping, props.startDelay);
-    }
-  };
-  
-  typingTimeout = setTimeout(eraseNextChar, props.eraseSpeed);
-};
-
-// Start the animation when component is mounted
 onMounted(() => {
-  startTyping();
+  type();
 });
 
-// Watch for text changes
-watch(() => props.text, () => {
-  if (typingTimeout) {
-    clearTimeout(typingTimeout);
-  }
-  
-  startTyping();
-});
-
-// Watch for texts array changes
 watch(() => props.texts, () => {
-  if (typingTimeout) {
-    clearTimeout(typingTimeout);
-  }
-  
-  currentTextIndex = 0;
-  startTyping();
-}, { deep: true });
+  currentIndex.value = 0;
+  isDeleting.value = false;
+  displayText.value = '';
+  type();
+});
 </script>
 
-<style scoped>
-.typewriter {
+<style lang="scss" scoped>
+.typewriter-text {
   display: inline-block;
+  min-height: 1.5em;
+  color: $primary;
+  font-weight: 600;
+  border-right: 2px solid $primary;
+  animation: blink 0.7s infinite;
 }
 
-.typewriter-cursor {
-  display: inline-block;
-  font-weight: 400;
-  color: currentColor;
-  position: relative;
-  margin-left: 2px;
-}
-
-.typewriter-cursor.blink {
-  animation: cursor-blink 1s step-end infinite;
-}
-
-@keyframes cursor-blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
 }
 </style>

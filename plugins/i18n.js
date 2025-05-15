@@ -1,82 +1,65 @@
-export default defineNuxtPlugin(({ $i18n }) => {
-  const router = useRouter()
-  const route = useRoute()
+export default defineNuxtPlugin(async (nuxtApp) => {
+  const { $i18n } = nuxtApp;
 
-  // Initialize language based on browser preferences
+  // Set language based on browser preference on first visit (if not already set)
   const initializeLanguage = () => {
     if (process.client) {
-      try {
-        // Check for stored user preference
-        const storedLocale = localStorage.getItem('user-locale')
-        if (storedLocale && ['de', 'en'].includes(storedLocale)) {
-          $i18n.locale.value = storedLocale
-          return
-        }
+      // Check if we have a stored preference in localStorage
+      const storedLang = localStorage.getItem("preferredLanguage");
 
-        // Check browser language
-        const browserLang = navigator.language.split('-')[0]
-        if (browserLang && ['de', 'en'].includes(browserLang)) {
-          $i18n.locale.value = browserLang
+      if (storedLang && storedLang !== $i18n.locale.value) {
+        // Use stored preference
+        $i18n.setLocale(storedLang);
+      } else if (!storedLang) {
+        // Get browser language
+        const browserLang = navigator.language.split("-")[0];
+
+        // Only set the language if it's one of our supported locales
+        const availableLocales = $i18n.locales.value.map(
+          (locale) => locale.code
+        );
+
+        if (
+          availableLocales.includes(browserLang) &&
+          browserLang !== $i18n.locale.value
+        ) {
+          $i18n.setLocale(browserLang);
+          // Store this preference
+          localStorage.setItem("preferredLanguage", browserLang);
         } else {
-          $i18n.locale.value = 'de'
+          // Store current locale as preference for future visits
+          localStorage.setItem("preferredLanguage", $i18n.locale.value);
         }
-      } catch (error) {
-        console.error('Error initializing language:', error)
-        $i18n.locale.value = 'de'
       }
     }
-  }
+  };
 
-  // Update HTML lang attribute
-  const updateHtmlLang = (locale) => {
+  // Update HTML lang attribute when language changes
+  const updateHtmlLang = (newLocale) => {
     if (process.client) {
-      try {
-        document.documentElement.lang = locale
-      } catch (error) {
-        console.error('Error updating HTML lang attribute:', error)
-      }
+      document.documentElement.setAttribute("lang", newLocale);
     }
-  }
+  };
 
-  // Initialize language on client-side
-  if (process.client) {
-    initializeLanguage()
-    updateHtmlLang($i18n.locale.value)
-  }
+  // Run initialization
+  nuxtApp.hook("app:mounted", () => {
+    initializeLanguage();
+    updateHtmlLang($i18n.locale.value);
+  });
 
-  // Watch for locale changes
+  // Watch for locale changes to update HTML lang attribute
   watch($i18n.locale, (newLocale) => {
-    if (process.client) {
-      // Update HTML lang attribute
-      updateHtmlLang(newLocale)
+    updateHtmlLang(newLocale);
 
-      // Update metadata for SEO
-      try {
-        useHead({
-          htmlAttrs: {
-            lang: newLocale
-          }
-        })
-      } catch (error) {
-        console.error('Error updating metadata:', error)
-      }
-
-      // Store user preference
-      try {
-        localStorage.setItem('user-locale', newLocale)
-      } catch (error) {
-        console.error('Error storing language preference:', error)
-      }
-
-      // Handle routing
-      const currentPath = route.fullPath
-      const pathWithoutLocale = currentPath.replace(/^\/[a-z]{2}(?=\/|$)/, '')
-
-      if (newLocale === 'de') {
-        router.push(pathWithoutLocale)
-      } else {
-        router.push(`/${newLocale}${pathWithoutLocale}`)
-      }
+    // Update metadata for SEO when language changes
+    const head = nuxtApp._appConfig.head;
+    if (head && head.htmlAttrs) {
+      head.htmlAttrs.lang = newLocale;
     }
-  })
-})
+
+    // Store user preference
+    if (process.client) {
+      localStorage.setItem("preferredLanguage", newLocale);
+    }
+  });
+});

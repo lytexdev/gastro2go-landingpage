@@ -1,98 +1,96 @@
 <template>
   <section id="features" class="features-section">
     <div class="container">
-      <div class="section-header text-center">
-        <h2 v-animate="'fadeInUp'">{{ $t('features.title') }}</h2>
-        <p class="section-subtitle" v-animate="{ animation: 'fadeInUp', delay: 0.2 }">
+      <div class="section-header text-center" v-animate="{ animation: 'fadeInUp', delay: 0 }">
+        <h2 class="title-split" v-animate="{ animation: 'fadeInUp', delay: 200 }">
+          {{ $t('features.title') }}
+        </h2>
+        <p class="section-subtitle" v-animate="{ animation: 'fadeInUp', delay: 400 }">
           {{ $t('features.subtitle') }}
         </p>
       </div>
       
-      <div class="features-tabs">
-        <!-- 3D Interactive Feature Tabs -->
-        <div class="tabs-wrapper">
-          <div class="tabs-container" ref="tabsContainer" :style="{ transform: `rotateY(${rotationY}deg) rotateX(${rotationX}deg)` }">
-            <button 
-              v-for="(category, index) in featureCategories" 
-              :key="index"
-              class="tab-button-3d"
-              :class="{ 
-                'active': activeTab === index,
-                'next': (index === activeTab + 1) || (activeTab === featureCategories.length - 1 && index === 0),
-                'prev': (index === activeTab - 1) || (activeTab === 0 && index === featureCategories.length - 1)
-              }"
-              :style="getTabPosition(index)"
-              @click="setActiveTab(index)"
-            >
-              <div class="tab-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <component :is="getIconComponent(category.icon)" />
-                </svg>
-              </div>
-              <span>{{ category.name }}</span>
-            </button>
+      <div class="features-tabs" v-animate="{ animation: 'fadeInUp', delay: 300 }">
+        <div 
+          v-for="(tab, index) in tabs" 
+          :key="index"
+          class="tab-item"
+          :class="{ 'active': activeTab === index }"
+          @click="activeTab = index"
+          v-animate="{ animation: 'fadeInUp', delay: 400 + (index * 100) }"
+        >
+          <div class="tab-icon">
+            <component :is="tab.icon" />
           </div>
+          <span class="tab-label">{{ tab.label }}</span>
         </div>
-        
-        <!-- Tab Content with Animations -->
-        <div class="tabs-content">
-          <transition-group 
-            name="tab-transition" 
-            mode="out-in"
-          >
-            <div 
-              v-for="(category, index) in featureCategories" 
-              :key="index"
-              class="tab-panel"
-              v-show="activeTab === index"
-            >
-              <div class="feature-list stagger-group" data-base-delay="0.1">
+      </div>
+      
+      <div class="features-content">
+        <div 
+          v-for="(tab, index) in tabs" 
+          :key="index"
+          class="feature-panel"
+          :class="{ 'active': activeTab === index }"
+          v-animate="{ animation: 'fadeInUp', delay: 500 + (index * 100) }"
+        >
+          <div class="feature-grid">
+            <div class="feature-text">
+              <h3 class="feature-title" v-animate="{ animation: 'fadeInLeft', delay: 600 + (index * 100) }">
+                {{ tab.title }}
+              </h3>
+              <p class="feature-description" v-animate="{ animation: 'fadeInLeft', delay: 700 + (index * 100) }">
+                {{ tab.description }}
+              </p>
+              
+              <div class="feature-list">
                 <div 
-                  v-for="(feature, featureIndex) in category.features" 
-                  :key="featureIndex"
+                  v-for="(item, itemIndex) in tab.items" 
+                  :key="itemIndex"
                   class="feature-item"
+                  v-animate="{ animation: 'fadeInLeft', delay: 800 + (itemIndex * 100) }"
                 >
                   <div class="feature-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                       <path d="M5 12l5 5l10 -10"></path>
                     </svg>
                   </div>
-                  <span>{{ feature }}</span>
+                  <span>{{ item }}</span>
                 </div>
               </div>
-              
-              <div class="feature-image-wrapper">
-                <div class="feature-image-container" :class="{ 'animate-in': activeTab === index }">
-                  <img 
-                    :src="`/images/features/${category.icon}.webp`" 
-                    :alt="category.name"
-                    loading="lazy"
-                    width="400"
-                    height="300"
-                    class="feature-image"
-                  />
-                  
-                  <!-- Feature highlights that animate in -->
-                  <div class="feature-highlight highlight-1">
-                    <div class="highlight-dot"></div>
-                    <div class="highlight-content">
-                      <h4>{{ getFeatureHighlight(index, 0).title }}</h4>
-                      <p>{{ getFeatureHighlight(index, 0).desc }}</p>
-                    </div>
+            </div>
+            
+            <div class="feature-image" v-animate="{ animation: 'fadeInRight', delay: 600 + (index * 100) }">
+              <div class="image-wrapper">
+                <img 
+                  :src="tab.image" 
+                  :alt="tab.title"
+                  loading="lazy"
+                  width="500"
+                  height="300"
+                  v-animate="{ animation: 'zoomIn', delay: 800 + (index * 100) }"
+                />
+                
+                <div class="image-overlay"></div>
+                
+                <div class="floating-elements">
+                  <div class="element element-1" v-animate="{ animation: 'float', delay: 900 + (index * 100), duration: 4000, iterationCount: 'infinite' }">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                    </svg>
                   </div>
                   
-                  <div class="feature-highlight highlight-2">
-                    <div class="highlight-dot"></div>
-                    <div class="highlight-content">
-                      <h4>{{ getFeatureHighlight(index, 1).title }}</h4>
-                      <p>{{ getFeatureHighlight(index, 1).desc }}</p>
-                    </div>
+                  <div class="element element-2" v-animate="{ animation: 'float', delay: 1000 + (index * 100), duration: 5000, iterationCount: 'infinite' }">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
                   </div>
                 </div>
               </div>
             </div>
-          </transition-group>
+          </div>
         </div>
       </div>
     </div>
@@ -105,29 +103,54 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import useAnimations from '~/composables/useAnimations';
+import { useI18n } from 'vue-i18n';
+import useScrollAnimation from '~/composables/useScrollAnimation';
 
-// Get translations for feature categories
 const { t } = useI18n();
-
-const featureCategories = computed(() => {
-  // Direct access to the translation structure
-  const categories = [];
-  for (let i = 0; i < 8; i++) {
-    categories.push({
-      name: t(`features.categories.${i}.name`),
-      icon: t(`features.categories.${i}.icon`),
-      features: [
-        t(`features.categories.${i}.features.0`),
-        t(`features.categories.${i}.features.1`),
-        t(`features.categories.${i}.features.2`),
-        t(`features.categories.${i}.features.3`)
-      ]
-    });
-  }
-  return categories;
-});
-
 const activeTab = ref(0);
+
+const tabs = computed(() => [
+  {
+    icon: 'IconOrder',
+    label: t('features.tabs.order'),
+    title: t('features.order.title'),
+    description: t('features.order.description'),
+    items: [
+      t('features.order.items.0'),
+      t('features.order.items.1'),
+      t('features.order.items.2'),
+      t('features.order.items.3')
+    ],
+    image: '/images/features/order.webp'
+  },
+  {
+    icon: 'IconMenu',
+    label: t('features.tabs.menu'),
+    title: t('features.menu.title'),
+    description: t('features.menu.description'),
+    items: [
+      t('features.menu.items.0'),
+      t('features.menu.items.1'),
+      t('features.menu.items.2'),
+      t('features.menu.items.3')
+    ],
+    image: '/images/features/menu.webp'
+  },
+  {
+    icon: 'IconAnalytics',
+    label: t('features.tabs.analytics'),
+    title: t('features.analytics.title'),
+    description: t('features.analytics.description'),
+    items: [
+      t('features.analytics.items.0'),
+      t('features.analytics.items.1'),
+      t('features.analytics.items.2'),
+      t('features.analytics.items.3')
+    ],
+    image: '/images/features/analytics.webp'
+  }
+]);
+
 const tabsContainer = ref(null);
 const rotationX = ref(0);
 const rotationY = ref(0);
@@ -137,7 +160,7 @@ let mouseY = 0;
 
 // Dynamically position tabs in 3D space
 const getTabPosition = (index) => {
-  const totalTabs = featureCategories.value.length;
+  const totalTabs = tabs.value.length;
   const angle = (index * (360 / totalTabs)) * (Math.PI / 180);
   const radius = 200;
   
@@ -157,7 +180,7 @@ const setActiveTab = (index) => {
   }
   
   // Animate to new tab
-  const totalTabs = featureCategories.value.length;
+  const totalTabs = tabs.value.length;
   const targetAngle = -(index * (360 / totalTabs));
   
   // Smoothly rotate to the selected tab
@@ -179,10 +202,10 @@ const startAutoRotate = () => {
   }
   
   autoRotateInterval = setInterval(() => {
-    activeTab.value = (activeTab.value + 1) % featureCategories.value.length;
+    activeTab.value = (activeTab.value + 1) % tabs.value.length;
     
     // Update rotation to match active tab
-    const totalTabs = featureCategories.value.length;
+    const totalTabs = tabs.value.length;
     rotationY.value = -(activeTab.value * (360 / totalTabs));
   }, 5000); // Change tab every 5 seconds
 };
@@ -200,7 +223,7 @@ const handleMouseMove = (e) => {
   
   // Calculate rotation based on mouse position
   rotationX.value = -(mouseY / rect.height) * 10;
-  rotationY.value = (mouseX / rect.width) * 10 - (activeTab.value * (360 / featureCategories.value.length));
+  rotationY.value = (mouseX / rect.width) * 10 - (activeTab.value * (360 / tabs.value.length));
 };
 
 // Generate feature highlights dynamically
@@ -338,6 +361,7 @@ const getIconComponent = (iconName) => {
 onMounted(() => {
   // Initialize animations
   useAnimations();
+  useScrollAnimation();
   
   // Add event listeners
   window.addEventListener('mousemove', handleMouseMove);
@@ -364,6 +388,17 @@ onUnmounted(() => {
   background-color: rgba($gray-lighter, 0.3);
   overflow: hidden;
   
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba($primary, 0.02) 0%, rgba($secondary, 0.02) 100%);
+    z-index: -1;
+  }
+  
   .section-header {
     max-width: 700px;
     margin: 0 auto $spacing-10;
@@ -371,6 +406,23 @@ onUnmounted(() => {
     h2 {
       color: $dark;
       margin-bottom: $spacing-4;
+      position: relative;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 4px;
+        background-color: $primary;
+        transition: width 0.8s ease-in-out;
+      }
+      
+      &:hover::after {
+        width: 100px;
+      }
     }
     
     .section-subtitle {
@@ -379,250 +431,207 @@ onUnmounted(() => {
     }
   }
   
-  // 3D tabs
   .features-tabs {
-    max-width: 1200px;
-    margin: 0 auto;
-    perspective: 1000px;
-  }
-  
-  .tabs-wrapper {
-    height: 300px;
-    position: relative;
-    margin-bottom: $spacing-10;
-    
-    @media (max-width: $breakpoint-md) {
-      display: none; // Hide 3D tabs on mobile - fallback to classic tabs
-    }
-  }
-  
-  .tabs-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-    transform-style: preserve-3d;
-    transition: transform 0.5s ease-out;
-  }
-  
-  .tab-button-3d {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    width: 120px;
-    height: 120px;
-    background-color: $white;
-    border: none;
-    border-radius: $border-radius-lg;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    opacity: 0.6;
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
+    gap: $spacing-4;
+    margin-bottom: $spacing-8;
+    flex-wrap: wrap;
     
-    &.active {
-      opacity: 1;
-      background-color: $primary;
-      color: $white;
-      box-shadow: 0 15px 40px rgba($primary, 0.3);
-      transform: translate(-50%, -50%) scale(1.2);
-      z-index: 2;
-      
-      .tab-icon {
-        background-color: rgba($white, 0.2);
-      }
-    }
-    
-    &.next, &.prev {
-      opacity: 0.8;
-      z-index: 1;
-    }
-    
-    &:hover:not(.active) {
-      opacity: 0.9;
-      transform: translate(-50%, -50%) scale(1.1);
-    }
-    
-    .tab-icon {
+    .tab-item {
       display: flex;
       align-items: center;
-      justify-content: center;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      margin-bottom: $spacing-3;
-      background-color: rgba($primary, 0.1);
-      color: currentColor;
-      transition: $transition-base;
-    }
-    
-    span {
-      font-weight: $font-weight-medium;
-      text-align: center;
-      font-size: $font-size-sm;
-    }
-  }
-  
-  // Tab content
-  .tabs-content {
-    background-color: $white;
-    border-radius: $border-radius-xl;
-    box-shadow: $shadow-lg;
-    overflow: hidden;
-    position: relative;
-  }
-  
-  .tab-panel {
-    display: grid;
-    grid-template-columns: 1fr;
-    
-    @media (min-width: $breakpoint-md) {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-  
-  // Tab transition animations
-  .tab-transition-enter-active,
-  .tab-transition-leave-active {
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  
-  .tab-transition-enter-from,
-  .tab-transition-leave-to {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  
-  // Feature list
-  .feature-list {
-    padding: $spacing-6;
-    
-    .feature-item {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: $spacing-4;
-      opacity: 0;
-      transform: translateX(-20px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      gap: $spacing-2;
+      padding: $spacing-3 $spacing-4;
+      border-radius: $border-radius-lg;
+      background-color: $white;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: $shadow-sm;
       
-      &:last-child {
-        margin-bottom: 0;
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-md;
       }
       
-      .feature-icon {
+      &.active {
+        background-color: $primary;
+        color: $white;
+        box-shadow: $shadow-lg;
+        
+        .tab-icon {
+          background-color: rgba($white, 0.2);
+          color: $white;
+        }
+      }
+      
+      .tab-icon {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        border-radius: $border-radius-lg;
         background-color: rgba($primary, 0.1);
         color: $primary;
-        margin-right: $spacing-3;
-        flex-shrink: 0;
+        transition: all 0.3s ease;
       }
       
-      span {
-        color: $gray-dark;
+      .tab-label {
+        font-weight: $font-weight-medium;
       }
     }
   }
   
-  // Feature image
-  .feature-image-wrapper {
-    background-color: rgba($primary, 0.05);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: $spacing-6;
+  .features-content {
     position: relative;
-    overflow: hidden;
-    min-height: 400px;
-  }
-  
-  .feature-image-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transform: translateY(20px);
-    opacity: 0;
-    transition: transform 0.8s ease, opacity 0.8s ease;
     
-    &.animate-in {
-      transform: translateY(0);
-      opacity: 1;
+    .feature-panel {
+      display: none;
       
-      .feature-highlight {
-        opacity: 1;
-        transform: translateY(0);
+      &.active {
+        display: block;
+        animation: fadeIn 0.5s ease forwards;
+      }
+    }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: $spacing-10;
+      align-items: center;
+      
+      @media (min-width: $breakpoint-lg) {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    .feature-text {
+      .feature-title {
+        font-size: $font-size-2xl;
+        font-weight: 700;
+        color: $dark;
+        margin-bottom: $spacing-4;
+      }
+      
+      .feature-description {
+        font-size: $font-size-lg;
+        color: $gray-dark;
+        margin-bottom: $spacing-6;
+        line-height: 1.6;
+      }
+      
+      .feature-list {
+        .feature-item {
+          display: flex;
+          align-items: center;
+          margin-bottom: $spacing-4;
+          
+          &:last-child {
+            margin-bottom: 0;
+          }
+          
+          .feature-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: rgba($primary, 0.1);
+            color: $primary;
+            margin-right: $spacing-3;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+          }
+          
+          span {
+            color: $gray-dark;
+            font-size: $font-size-base;
+          }
+          
+          &:hover {
+            .feature-icon {
+              transform: scale(1.1) rotate(5deg);
+              background-color: $primary;
+              color: $white;
+            }
+          }
+        }
       }
     }
     
     .feature-image {
-      max-width: 100%;
-      height: auto;
-      border-radius: $border-radius-lg;
-      box-shadow: $shadow;
-      transition: transform 0.5s ease;
+      position: relative;
       
-      &:hover {
-        transform: scale(1.02);
-      }
-    }
-    
-    // Highlights
-    .feature-highlight {
-      position: absolute;
-      display: flex;
-      align-items: center;
-      background-color: $white;
-      border-radius: $border-radius;
-      padding: $spacing-3 $spacing-4;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      max-width: 200px;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-      z-index: 1;
-      
-      &.highlight-1 {
-        top: 20px;
-        right: 10px;
-        transition-delay: 0.3s;
-      }
-      
-      &.highlight-2 {
-        bottom: 30px;
-        left: 10px;
-        transition-delay: 0.5s;
-      }
-      
-      .highlight-dot {
-        width: 12px;
-        height: 12px;
-        background-color: $primary;
-        border-radius: 50%;
-        margin-right: $spacing-3;
-        flex-shrink: 0;
-      }
-      
-      .highlight-content {
-        h4 {
-          font-size: $font-size-sm;
-          color: $primary;
-          margin-bottom: $spacing-1;
+      .image-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: $border-radius-xl;
+        overflow: hidden;
+        box-shadow: $shadow-xl;
+        
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.5s ease;
+          
+          &:hover {
+            transform: scale(1.05);
+          }
         }
         
-        p {
-          font-size: $font-size-xs;
-          color: $gray;
-          margin: 0;
+        .image-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, rgba($primary, 0.1) 0%, rgba($secondary, 0.1) 100%);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+        
+        &:hover {
+          .image-overlay {
+            opacity: 1;
+          }
+        }
+      }
+      
+      .floating-elements {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        
+        .element {
+          position: absolute;
+          background-color: $white;
+          border-radius: 50%;
+          box-shadow: $shadow-lg;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: $primary;
+          
+          &.element-1 {
+            top: 10%;
+            right: 10%;
+            width: 60px;
+            height: 60px;
+          }
+          
+          &.element-2 {
+            bottom: 20%;
+            left: 5%;
+            width: 70px;
+            height: 70px;
+          }
         }
       }
     }
@@ -640,25 +649,32 @@ onUnmounted(() => {
     opacity: 0.5;
     z-index: -1;
   }
+}
 
-  // Stagger animation for feature items
-  .stagger-group .feature-item {
-    &:nth-child(1) { transition-delay: 0.1s; }
-    &:nth-child(2) { transition-delay: 0.2s; }
-    &:nth-child(3) { transition-delay: 0.3s; }
-    &:nth-child(4) { transition-delay: 0.4s; }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  .tab-panel:global(.animate-in) .feature-item {
+  to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
   }
 }
 
 // Mobile fallback (classic tab navigation)
 @media (max-width: $breakpoint-md) {
   .features-section {
-    .tabs-content {
+    .features-content {
       margin-top: $spacing-8;
     }
     

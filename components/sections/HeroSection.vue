@@ -10,23 +10,23 @@
     <div class="container">
       <div class="hero-content">
         <!-- Enhanced text container with animations -->
-        <div class="hero-text">
-          <h1 class="hero-title">
+        <div class="hero-text" v-animate="{ animation: 'fadeInUp', delay: 0 }">
+          <h1 class="hero-title" v-animate="{ animation: 'fadeInUp', delay: 200 }">
             <span class="text-split" data-split-by="word" data-animation-type="fadeUp">
               {{ $t('hero.title') }}
             </span>
           </h1>
           
-          <p class="hero-subtitle">
+          <p class="hero-subtitle" v-animate="{ animation: 'fadeInUp', delay: 400 }">
             <TypeWriter 
-              :texts="[$t('hero.subtitle'), 'Digitalisiere dein Restaurant ohne Provisionen', 'Mehr Umsatz, mehr Kundenbindung']"
-              :speed="40"
-              :erase-pause="3000"
+              :texts="typewriterTexts"
+              :speed="100"
+              :erase-pause="2000"
               :infinite="true"
             />
           </p>
           
-          <div v-animate="'fadeInUp'" class="hero-actions" style="--delay: 0.3s;">
+          <div class="hero-cta" v-animate="{ animation: 'fadeInUp', delay: 600 }">
             <BaseButton 
               variant="primary" 
               size="lg"
@@ -34,6 +34,7 @@
               @click="scrollToContact"
               class="magnetic"
               data-power="20"
+              v-animate="{ animation: 'pulse', delay: 800, duration: 2000, iterationCount: 'infinite' }"
             >
               {{ $t('hero.cta') }}
               <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -86,15 +87,18 @@
           direction="up"
           :max-offset="50"
           class="hero-image"
+          v-animate="{ animation: 'fadeInRight', delay: 400 }"
         >
-          <img 
-            src="~/assets/images/hero-bg.webp" 
-            alt="Gastro2Go.io App"
-            loading="eager"
-            width="600"
-            height="400"
-            class="animate-on-scroll fade-in"
-          />
+          <div class="image-wrapper" v-animate="{ animation: 'float', delay: 600, duration: 6000, iterationCount: 'infinite' }">
+            <img 
+              src="~/assets/images/hero-bg.webp" 
+              alt="Gastro2Go.io App"
+              loading="eager"
+              width="600"
+              height="400"
+              class="animate-on-scroll fade-in"
+            />
+          </div>
           
           <!-- Floating elements for visual interest -->
           <div class="floating-element element-1">
@@ -126,12 +130,16 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import ParticleBackground from '../effects/ParticleBackground.vue';
 import TypeWriter from '../effects/TypeWriter.vue';
 import ParallaxWrapper from '../effects/ParallaxWrapper.vue';
 import useAnimations from '~/composables/useAnimations';
 import useScrollReveal from '~/composables/useScrollReveal';
+import BaseButton from '../ui/BaseButton.vue';
+
+const { t } = useI18n();
 
 const scrollToContact = () => {
   const contactSection = document.getElementById('contact');
@@ -147,12 +155,23 @@ const scrollToDemo = () => {
   }
 };
 
+const typewriterTexts = computed(() => [
+  t('hero.typewriter.0'),
+  t('hero.typewriter.1'),
+  t('hero.typewriter.2'),
+  t('hero.typewriter.3'),
+  t('hero.typewriter.4'),
+  t('hero.typewriter.5'),
+  t('hero.typewriter.6'),
+  t('hero.typewriter.7')
+]);
+
 onMounted(() => {
   // Initialize animations
   useAnimations();
   useScrollReveal();
 
-  // Initialize text split animations (handled in useAnimations)
+  // Initialize text split animations
   setTimeout(() => {
     const textElements = document.querySelectorAll('.text-split');
     textElements.forEach(element => {
@@ -240,7 +259,7 @@ onMounted(() => {
       }
     }
     
-    .hero-actions {
+    .hero-cta {
       display: flex;
       flex-wrap: wrap;
       gap: $spacing-3;
@@ -278,6 +297,28 @@ onMounted(() => {
     position: relative;
     display: flex;
     justify-content: center;
+    
+    .image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 120%;
+        height: 120%;
+        background: radial-gradient(circle, rgba($primary, 0.1) 0%, transparent 70%);
+        z-index: -1;
+        animation: pulse 4s ease-in-out infinite;
+      }
+    }
     
     img {
       max-width: 100%;
@@ -428,6 +469,21 @@ onMounted(() => {
   }
   50% {
     transform: translateX(-50%) translateY(-10px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
   }
 }
 
